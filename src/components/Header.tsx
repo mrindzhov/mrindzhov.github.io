@@ -5,8 +5,9 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import MenuIcon from '@material-ui/icons/Menu';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { NavLink } from 'react-router-dom';
-import { useAuthState } from '../App/AuthContext';
+import { firebaseAuth } from '../App/firebase';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -18,12 +19,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function Header() {
   const classes = useStyles();
-  const { isAuthenticated } = useAuthState();
+  const [user] = useAuthState(firebaseAuth);
 
   return (
     <AppBar position='static'>
       <Toolbar>
-        {isAuthenticated && (
+        {!!user && (
           <IconButton edge='start' className={classes.menuButton} color='inherit' aria-label='menu'>
             <MenuIcon />
           </IconButton>
@@ -33,12 +34,20 @@ export default function Header() {
             Home
           </Button>
         </Typography>
-        <Button color='inherit' component={NavLink} variant='text' to='/sign/in'>
-          Login
-        </Button>
-        <Button color='inherit' component={NavLink} variant='text' to='/sign/up'>
-          Sign Up
-        </Button>
+        {!user ? (
+          <>
+            <Button color='inherit' component={NavLink} variant='text' to='/sign/in'>
+              Login
+            </Button>
+            <Button color='inherit' component={NavLink} variant='text' to='/sign/up'>
+              Sign Up
+            </Button>
+          </>
+        ) : (
+          <Button color='inherit' variant='text' onClick={() => firebaseAuth.signOut()}>
+            Log out
+          </Button>
+        )}
         {/* <IconButton
             edge='start'
             color='inherit'

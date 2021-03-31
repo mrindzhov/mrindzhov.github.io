@@ -6,6 +6,8 @@ import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import { useAuthState, useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { firebaseAuth } from '../App/firebase';
 import UserEntrance from '../components/UserEntrance';
 
 const useStyles = makeStyles((theme) => ({
@@ -20,7 +22,15 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn() {
   const classes = useStyles();
+  const [signInWithEmailAndPassword] = useSignInWithEmailAndPassword(firebaseAuth);
+  const [user] = useAuthState(firebaseAuth);
 
+  // useEffect(() => {
+  //   signInWithEmailAndPassword('mrindzhov@gmail.com', 'test123');
+  // }, []);
+
+  console.log(user);
+  // console.log(user, loading);
   return (
     <UserEntrance title='Sign In' icon={<LockOutlinedIcon />}>
       <form className={classes.form} noValidate>

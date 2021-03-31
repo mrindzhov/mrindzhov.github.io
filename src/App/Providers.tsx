@@ -1,7 +1,6 @@
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import { pink } from '@material-ui/core/colors';
 import { IProps } from '../models';
-import { AuthProvider } from './AuthContext';
 
 const theme = createMuiTheme({
   palette: {
@@ -9,8 +8,7 @@ const theme = createMuiTheme({
     secondary: pink,
   },
 });
-export const Providers = ({ children }: IProps) => (
-  <ThemeProvider theme={theme}>
-    <AuthProvider>{children}</AuthProvider>
-  </ThemeProvider>
-);
+
+export const Providers = ({ children }: IProps) => {
+  return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
+};

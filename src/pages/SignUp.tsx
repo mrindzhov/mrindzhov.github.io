@@ -6,7 +6,8 @@ import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import React from 'react';
+import { useAuthState, useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { firebaseAuth } from '../App/firebase';
 import UserEntrance from '../components/UserEntrance';
 
 const useStyles = makeStyles((theme) => ({
@@ -21,6 +22,15 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUp() {
   const classes = useStyles();
+  const [createUserWithEmailAndPassword, user, loading, error] = useCreateUserWithEmailAndPassword(firebaseAuth);
+  const authState = useAuthState(firebaseAuth);
+  // useEffect(() => {
+  //   createUserWithEmailAndPassword('mrindzhov@gmail.com', 'test123');
+
+  // }, []);
+
+  console.table(authState);
+  console.log(user, loading);
 
   return (
     <UserEntrance title='Sign Up' icon={<LockOutlinedIcon />}>
