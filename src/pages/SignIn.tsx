@@ -6,7 +6,9 @@ import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import { useAuthState, useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { Alert } from '@material-ui/lab';
+import { useState } from 'react';
+import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { firebaseAuth } from '../App/firebase';
 import UserEntrance from '../components/UserEntrance';
 
@@ -22,18 +24,23 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn() {
   const classes = useStyles();
-  const [signInWithEmailAndPassword] = useSignInWithEmailAndPassword(firebaseAuth);
-  const [user] = useAuthState(firebaseAuth);
-
-  // useEffect(() => {
-  //   signInWithEmailAndPassword('mrindzhov@gmail.com', 'test123');
-  // }, []);
+  const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(firebaseAuth);
 
   console.log(user);
-  // console.log(user, loading);
+
+  const [signInForm, setSignInForm] = useState({ email: '', password: '' });
+
+  const setFormField = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
+    setSignInForm((s) => ({ ...s, [e.target.name]: e.target.value }));
+
+  const submitForm = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    signInWithEmailAndPassword(signInForm.email, signInForm.password);
+  };
+
   return (
     <UserEntrance title='Sign In' icon={<LockOutlinedIcon />}>
-      <form className={classes.form} noValidate>
+      <form className={classes.form} noValidate onSubmit={submitForm}>
         <TextField
           variant='outlined'
           margin='normal'
@@ -44,6 +51,7 @@ export default function SignIn() {
           name='email'
           autoComplete='email'
           autoFocus
+          onChange={setFormField}
         />
         <TextField
           variant='outlined'
@@ -55,11 +63,14 @@ export default function SignIn() {
           type='password'
           id='password'
           autoComplete='current-password'
+          onChange={setFormField}
         />
         <FormControlLabel control={<Checkbox value='remember' color='primary' />} label='Remember me' />
+        {!!error && <Alert severity='error'>{error.message}</Alert>}
         <Button type='submit' fullWidth variant='contained' color='primary' className={classes.submit}>
           Sign In
         </Button>
+
         <Grid container>
           <Grid item xs>
             <Link href='#' variant='body2'>

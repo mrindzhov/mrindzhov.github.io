@@ -6,7 +6,9 @@ import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import { useAuthState, useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { Alert } from '@material-ui/lab';
+import { useEffect, useState } from 'react';
+import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { firebaseAuth } from '../App/firebase';
 import UserEntrance from '../components/UserEntrance';
 
@@ -22,19 +24,25 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUp() {
   const classes = useStyles();
+
+  const [signUpForm, setSignUpForm] = useState({ firstName: '', lastName: '', email: '', password: '' });
   const [createUserWithEmailAndPassword, user, loading, error] = useCreateUserWithEmailAndPassword(firebaseAuth);
-  const authState = useAuthState(firebaseAuth);
-  // useEffect(() => {
-  //   createUserWithEmailAndPassword('mrindzhov@gmail.com', 'test123');
 
-  // }, []);
+  useEffect(() => {
+    if (user) firebaseAuth.currentUser?.updateProfile({ displayName: 'Martin Indzhov' });
+  }, [user]);
 
-  console.table(authState);
-  console.log(user, loading);
+  const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    createUserWithEmailAndPassword(signUpForm.email, signUpForm.password);
+  };
+
+  const setFormField = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
+    setSignUpForm((s) => ({ ...s, [e.target.name]: e.target.value }));
 
   return (
     <UserEntrance title='Sign Up' icon={<LockOutlinedIcon />}>
-      <form className={classes.form} noValidate>
+      <form className={classes.form} noValidate onSubmit={submitForm}>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6}>
             <TextField
@@ -46,6 +54,7 @@ export default function SignUp() {
               id='firstName'
               label='First Name'
               autoFocus
+              onChange={setFormField}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -57,6 +66,7 @@ export default function SignUp() {
               label='Last Name'
               name='lastName'
               autoComplete='lname'
+              onChange={setFormField}
             />
           </Grid>
           <Grid item xs={12}>
@@ -68,6 +78,7 @@ export default function SignUp() {
               label='Email Address'
               name='email'
               autoComplete='email'
+              onChange={setFormField}
             />
           </Grid>
           <Grid item xs={12}>
@@ -80,6 +91,7 @@ export default function SignUp() {
               type='password'
               id='password'
               autoComplete='current-password'
+              onChange={setFormField}
             />
           </Grid>
           <Grid item xs={12}>
@@ -87,6 +99,7 @@ export default function SignUp() {
               control={<Checkbox value='allowExtraEmails' color='primary' />}
               label='I want to receive inspiration, marketing promotions and updates via email.'
             />
+            {!!error && <Alert severity='error'>{error.message}</Alert>}
           </Grid>
         </Grid>
         <Button type='submit' fullWidth variant='contained' color='primary' className={classes.submit}>
