@@ -37,7 +37,7 @@ export default function Layout({ children, noHeader }: LayoutProps) {
         children
       ) : (
         <Container component='main' className={classes.main}>
-          {children}
+          <>{children}</>
         </Container>
       )}
       <footer className={classes.footer}>
