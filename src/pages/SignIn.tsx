@@ -24,9 +24,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn() {
   const classes = useStyles();
-  const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(firebaseAuth);
-
-  console.log(user);
+  const [signInWithEmailAndPassword, , , error] = useSignInWithEmailAndPassword(firebaseAuth);
 
   const [signInForm, setSignInForm] = useState({ email: '', password: '' });
 

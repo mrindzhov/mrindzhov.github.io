@@ -1,4 +1,4 @@
-import React from 'react';
+import { LinearProgress } from '@material-ui/core';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Redirect, Route, RouteProps, Switch } from 'react-router-dom';
 import Dashboard from '../pages/Dashboard';
@@ -12,10 +12,10 @@ import Layout from './Layout';
 export const Routes = () => (
   <Switch>
     <RouteWrapper exact path='/' render={() => <HomePage />} hasLayout />
-    <RouteWrapper exact path='/dashboard' render={() => <Dashboard />} hasLayout noAuth />
+    <RouteWrapper exact path='/dashboard' render={() => <Dashboard />} hasLayout privateOnly />
 
-    <RouteWrapper exact path='/sign/in' render={() => <SignIn />} noAuth />
-    <RouteWrapper exact path='/sign/up' render={() => <SignUp />} noAuth />
+    <RouteWrapper exact path='/sign/in' render={() => <SignIn />} publicOnly />
+    <RouteWrapper exact path='/sign/up' render={() => <SignUp />} publicOnly />
 
     <RouteWrapper exact path='/:userName' render={() => <PublicCVPage />} />
   </Switch>
@@ -23,26 +23,18 @@ export const Routes = () => (
 
 interface RouteWrapperProps extends RouteProps {
   hasLayout?: true;
-  noAuth?: true;
+  publicOnly?: true;
+  privateOnly?: true;
 }
 
-function RouteWrapper({ hasLayout, noAuth, component, render, ...rest }: RouteWrapperProps) {
-  const [user] = useAuthState(firebaseAuth);
-  if (noAuth && user) {
-    return <Redirect to='/' />;
-  }
-  return (
-    <Route
-      {...rest}
-      render={
-        hasLayout && render
-          ? (props) => (
-              <Layout>
-                <>{render(props)}</>
-              </Layout>
-            )
-          : render
-      }
-    />
-  );
+function RouteWrapper({ hasLayout, publicOnly, privateOnly, component, render, ...rest }: RouteWrapperProps) {
+  const [user, loading] = useAuthState(firebaseAuth);
+
+  if (!user && loading) return <LinearProgress />;
+  else if (publicOnly && user) return <Redirect to='/dashboard' />;
+  else if (privateOnly && !user) return <Redirect to='/sign/in' />;
+  else
+    return (
+      <Route {...rest} render={hasLayout && render ? (props) => <Layout>{<>{render(props)}</>}</Layout> : render} />
+    );
 }

@@ -26,7 +26,7 @@ export default function SignUp() {
   const classes = useStyles();
 
   const [signUpForm, setSignUpForm] = useState({ firstName: '', lastName: '', email: '', password: '' });
-  const [createUserWithEmailAndPassword, user, loading, error] = useCreateUserWithEmailAndPassword(firebaseAuth);
+  const [createUserWithEmailAndPassword, user, , error] = useCreateUserWithEmailAndPassword(firebaseAuth);
 
   useEffect(() => {
     if (user) firebaseAuth.currentUser?.updateProfile({ displayName: 'Martin Indzhov' });
