@@ -2,12 +2,12 @@
   "main": {
     "name": "Tim Baker",
     "occupation": "Software Security Engineer",
-    "description": " currently employed by ",
+    // "description": " currently employed by ",
     "employer": "Shop Your Own Mortgage",
-    "jobDescription": "full stack software engineer across the range of our products, as well being our lead security specialist",
+    // "jobDescription": "full stack software engineer across the range of our products, as well being our lead security specialist",
     "image": "profile_pic.jpg",
     "bio": "I am an athlete at heart, with an entrepreneurial spirit, a knack for online security, and a passion for coding. Having returned from my year of traveling, I pursued my first development job to kick off my career. I was hired as a full stack developer by Shop Your Own Mortgage, where I still work today. Since beginning my career there, I have been given the opportunity to shift into cybersecurity for the company. I am currently working towards my Certified Ethical Hacker certification while working as a full stack developer and lead security specialist.",
-    "contactmessage": "Have a project for me? Think I'd be a good fit for your team? I'd love to hear from you, give me a shout by email or by using the form below if you'd like to get in contact with me.",
+    // "contactmessage": "Have a project for me? Think I'd be a good fit for your team? I'd love to hear from you, give me a shout by email or by using the form below if you'd like to get in contact with me.",
     "email": "tbakerx@gmail.com",
     "phone": "(250) 793-0920",
     "address": {

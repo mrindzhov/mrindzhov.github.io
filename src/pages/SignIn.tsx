@@ -7,9 +7,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { Alert } from '@material-ui/lab';
-import { useState } from 'react';
-import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
-import { firebaseAuth } from '../App/firebase';
+import { useEffect, useState } from 'react';
+import { useAuthState, useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { Redirect } from 'react-router';
+import { firebaseAuth, firebaseDatabase } from '../App/firebase';
 import UserEntrance from '../components/UserEntrance';
 
 const useStyles = makeStyles((theme) => ({
@@ -24,7 +25,22 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn() {
   const classes = useStyles();
-  const [signInWithEmailAndPassword, , , error] = useSignInWithEmailAndPassword(firebaseAuth);
+  const [signInWithEmailAndPassword, user, , error] = useSignInWithEmailAndPassword(firebaseAuth);
+  // const [user] = useAuthState(firebaseAuth);
+  useEffect(() => {
+    if (user && user.user) {
+      firebaseDatabase
+        .ref('users/' + user.user.uid)
+        .set({
+          username: 'me',
+          publicName: 'Martin Indzhov',
+          occupation: 'Software Security Engineer',
+        })
+        .then((a) => {
+          console.log(a);
+        });
+    }
+  }, [user]);
 
   const [signInForm, setSignInForm] = useState({ email: '', password: '' });
 
@@ -35,6 +51,10 @@ export default function SignIn() {
     e.preventDefault();
     signInWithEmailAndPassword(signInForm.email, signInForm.password);
   };
+
+  if (user) {
+    return <Redirect to='/dashboard' />;
+  }
 
   return (
     <UserEntrance title='Sign In' icon={<LockOutlinedIcon />}>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import clsx from 'clsx';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
@@ -8,18 +8,14 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { mainListItems, secondaryListItems } from '../../pages/listItems';
 import { useStyles } from '../../pages/Dashboard';
 
-const DashboardDrawer = () => {
+export function useDrawer() {
   const classes = useStyles();
 
-  const [open, setOpen] = React.useState(true);
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
+  const [open, setOpen] = React.useState(false);
+  const handleDrawerOpen = useCallback(() => setOpen(true), []);
+  const handleDrawerClose = useCallback(() => setOpen(false), []);
 
-  return (
+  const drawer = (
     <Drawer
       variant='permanent'
       classes={{
@@ -37,4 +33,6 @@ const DashboardDrawer = () => {
       <List>{secondaryListItems}</List>
     </Drawer>
   );
-};
+
+  return [drawer, handleDrawerOpen, handleDrawerClose, open];
+}

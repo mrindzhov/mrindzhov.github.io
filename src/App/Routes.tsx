@@ -31,7 +31,7 @@ function RouteWrapper({ hasLayout, publicOnly, privateOnly, component, render, .
   const [user, loading] = useAuthState(firebaseAuth);
 
   if (!user && loading) return <LinearProgress />;
-  else if (publicOnly && user) return <Redirect to='/dashboard' />;
+  // else if (publicOnly && user) return <Redirect to='/dashboard' />;
   else if (privateOnly && !user) return <Redirect to='/sign/in' />;
   else
     return (
