@@ -1,5 +1,6 @@
-import { Container, IconButton, makeStyles, Typography } from '@material-ui/core';
-import { CloudDownload, FontDownload } from '@material-ui/icons';
+import { Container, Grid, IconButton, makeStyles, Typography } from '@material-ui/core';
+import { CloudDownload } from '@material-ui/icons';
+import { RadarData, UserSkillsChart } from './UserSkillsChart';
 
 const useStyles = makeStyles((theme) => ({
   flex: {
@@ -9,24 +10,39 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
   },
   fullWidth: { width: '100%', display: 'flex', flexDirection: 'column' },
+  skills: { height: 500, width: 500 },
 }));
 
 export default function MySkills() {
   const classes = useStyles();
 
+  const data: RadarData[] = [
+    { subject: 'Math', level: 120 },
+    { subject: 'Chinese', level: 98 },
+    { subject: 'English', level: 86 },
+    { subject: 'Geography', level: 99 },
+    { subject: 'Physics', level: 85 },
+    { subject: 'History', level: 65 },
+  ];
+
   return (
     <Container className={classes.flex} maxWidth='lg'>
       <Typography variant='h3'>Skills.</Typography>
-      <Typography component='pre'>//TODO:</Typography>
+      <Grid container justify='center'>
+        <Grid item md={6} className={classes.skills}>
+          <UserSkillsChart data={data} />
+        </Grid>
+        <Grid item md={6} className={classes.skills}>
+          <UserSkillsChart data={data} />
+        </Grid>
+        <Grid item md={6} className={classes.skills}>
+          <UserSkillsChart data={data} />
+        </Grid>
+      </Grid>
 
       <Typography variant='h5'>Download my Resume</Typography>
 
-      <IconButton
-        color='secondary'
-        size='medium'
-        onClick={() => {
-          // 'changeImage()'
-        }}>
+      <IconButton color='secondary' size='medium' onClick={() => {}}>
         <CloudDownload style={{ fontSize: 40 }} />
       </IconButton>
     </Container>
