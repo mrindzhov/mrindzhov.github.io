@@ -1,5 +1,4 @@
 import { Box, Grid, makeStyles } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
 import { AddCircle } from '@material-ui/icons';
@@ -29,20 +28,20 @@ const useStyles = makeStyles((theme) => ({
 export default function SkillsSetup() {
   const classes = useStyles();
 
-  const { userData, setUserData, saveChanges } = useDashboard();
+  const { userData, setUserData } = useDashboard();
 
   const addNewValue = () => {
-    //  TODO: Add proper type setValues([...values, TYPE]);
     const newValue: Skill = { level: 20, name: '' };
 
     setUserData((prevState) => ({
       ...prevState,
       techSkills: [...(prevState?.techSkills || []), newValue],
     }));
-    // setValues([...values, { index: 0, level: 20, skill: '' }]);
   };
 
   const handleSkillChange = (name: string, e: string) => {
+    console.log(name);
+
     //   TODO: Save skill change to values
   };
 
@@ -61,8 +60,8 @@ export default function SkillsSetup() {
   return (
     <Papered title='Skills'>
       <div>
-        {userData?.techSkills.map(({ name, level }) => (
-          <Box key={name}>
+        {userData?.techSkills?.map(({ name, level }, i) => (
+          <Box key={i}>
             <Grid container spacing={1} alignItems='flex-end'>
               <Grid item xs={10}>
                 <div className={classes.skillRow}>
@@ -96,9 +95,6 @@ export default function SkillsSetup() {
         <IconButton onClick={addNewValue} aria-label='add-slider'>
           <AddCircle />
         </IconButton>
-        <Button onClick={saveChanges} color='primary'>
-          Save changes
-        </Button>
       </div>
     </Papered>
   );
