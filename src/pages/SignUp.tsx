@@ -9,6 +9,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { Alert } from '@material-ui/lab';
 import { useEffect, useState } from 'react';
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { NavLink } from 'react-router-dom';
 import { firebaseAuth } from '../App/firebase';
 import UserEntrance from '../components/UserEntrance';
 
@@ -107,7 +108,7 @@ export default function SignUp() {
         </Button>
         <Grid container justify='flex-end'>
           <Grid item>
-            <Link href='#' variant='body2'>
+            <Link component={NavLink} to='/sign/in' variant='body2'>
               Already have an account? Sign in
             </Link>
           </Grid>

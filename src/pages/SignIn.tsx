@@ -8,8 +8,9 @@ import TextField from '@material-ui/core/TextField';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { Alert } from '@material-ui/lab';
 import { useEffect, useState } from 'react';
-import { useAuthState, useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { Redirect } from 'react-router';
+import { NavLink } from 'react-router-dom';
 import { firebaseAuth, firebaseDatabase } from '../App/firebase';
 import UserEntrance from '../components/UserEntrance';
 
@@ -96,7 +97,7 @@ export default function SignIn() {
             </Link>
           </Grid>
           <Grid item>
-            <Link href='#' variant='body2'>
+            <Link component={NavLink} to='/sign/up' variant='body2'>
               {"Don't have an account? Sign Up"}
             </Link>
           </Grid>

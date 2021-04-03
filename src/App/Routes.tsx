@@ -11,7 +11,7 @@ import Layout from './Layout';
 
 export const Routes = () => (
   <Switch>
-    <RouteWrapper exact path='/' render={() => <HomePage />} hasLayout />
+    <RouteWrapper exact path='/' render={() => <HomePage />} publicOnly />
     <RouteWrapper exact path='/dashboard' render={() => <Dashboard />} hasLayout privateOnly />
 
     <RouteWrapper exact path='/sign/in' render={() => <SignIn />} publicOnly />
@@ -31,8 +31,8 @@ function RouteWrapper({ hasLayout, publicOnly, privateOnly, component, render, .
   const [user, loading] = useAuthState(firebaseAuth);
 
   if (!user && loading) return <LinearProgress />;
-  // else if (publicOnly && user) return <Redirect to='/dashboard' />;
-  else if (privateOnly && !user) return <Redirect to='/sign/in' />;
+  else if (publicOnly && user) return <Redirect to='/dashboard' />;
+  else if (privateOnly && !user) return <Redirect to='/' />;
   else
     return (
       <Route {...rest} render={hasLayout && render ? (props) => <Layout>{<>{render(props)}</>}</Layout> : render} />

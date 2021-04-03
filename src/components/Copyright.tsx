@@ -6,6 +6,9 @@ const useStyles = makeStyles((theme) => ({
   container: {
     marginTop: theme.spacing(8),
     marginBottom: theme.spacing(8),
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'column',
   },
 }));
 
@@ -18,11 +21,12 @@ export const Copyright = () => {
         No Copyright Issues ©.
         {new Date().getFullYear()}
         {'.'}
-        <Typography>
-          <Link color='inherit' href='http://localhost:3000/'>
-            Click here to create yours
-          </Link>
-        </Typography>
+      </Typography>
+      <br />
+      <Typography variant='caption' color='textSecondary' align='center'>
+        <Link color='inherit' href='http://localhost:3000/'>
+          Click here to create yours
+        </Link>
       </Typography>
     </Container>
   );
