@@ -1,4 +1,4 @@
-import { Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Switch, TextField } from '@material-ui/core';
+import { FormControl, FormControlLabel, FormGroup, FormLabel, Switch, TextField } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import React from 'react';
 import { useDashboard } from '../dashboardContext';
@@ -9,14 +9,14 @@ export function PersonalInfo() {
 
   const publicFields = [
     'isPublic',
+    'countryOfResidence',
     'fullName',
-    'bio',
+    'imageURL',
     'userName',
+    'resumeUrl',
     'shortDescriptions',
     'actionButtonText',
-    'countryOfResidence',
-    'resumeUrl',
-    'imageURL',
+    'bio',
   ];
 
   const setField = ({ target: { value, name } }: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
@@ -35,29 +35,31 @@ export function PersonalInfo() {
           .reverse()
           .map(([key, value]) => {
             return (
-              <Grid item xs={12} sm={4} key={key}>
+              <Grid item xs={12} sm={6} key={key}>
                 {key === 'isPublic' ? (
-                  <Grid item xs={12} sm={4}>
-                    <FormControl component='fieldset'>
-                      <FormLabel component='legend'>Make your profile public</FormLabel>
-                      <FormGroup>
-                        <FormControlLabel
-                          control={
-                            <Switch
-                              checked={userData.isPublic}
-                              onChange={(e) => setUserData((prev) => ({ ...prev, isPublic: !prev.isPublic }))}
-                              name='isPublic'
-                            />
-                          }
-                          label={userData.isPublic ? 'Public' : 'Private'}
-                        />
-                      </FormGroup>
-                    </FormControl>
-                  </Grid>
+                  <FormControl component='fieldset'>
+                    <FormLabel component='legend'>
+                      {userData.isPublic
+                        ? 'Your profile is now visible to the public'
+                        : 'Your profile is currently hidden'}
+                    </FormLabel>
+                    <FormGroup>
+                      <FormControlLabel
+                        control={
+                          <Switch
+                            checked={userData.isPublic}
+                            onChange={(e) => setUserData((prev) => ({ ...prev, isPublic: !prev.isPublic }))}
+                            name='isPublic'
+                          />
+                        }
+                        label={userData.isPublic ? 'Public' : 'Private'}
+                      />
+                    </FormGroup>
+                  </FormControl>
                 ) : (
                   <TextField
                     required
-                    rows={key === 'bio' ? 3 : undefined}
+                    rows={key === 'bio' ? 5 : undefined}
                     multiline={key === 'bio'}
                     name={key}
                     label={toCapitalizedWord(key)}
