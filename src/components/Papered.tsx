@@ -18,7 +18,6 @@ type PaperedProps = IProps & {
 
 export function Papered({ title, children }: PaperedProps) {
   const classes = useStyles();
-
   return (
     <Paper className={classes.paper}>
       <Title>{title}</Title>

@@ -1,44 +1,51 @@
 import { UserData } from '../models';
 
-export const userDataDemo: UserData = {
-  imageURL: '',
+export const initialUserData: UserData = {
+  fullName: '',
+  userName: '',
+  isPublic: false,
+  bio: 'Brag about yourself here',
+  shortDescriptions: ['', ''],
+  actionButtonText: 'Call to action for ineraction',
+  countryOfResidence: 'Bulgaria',
+  resumeUrl: 'http://ipv4.download.thinkbroadband.com/5MB.zip',
+  social: {
+    facebook: 'http://facebook.com/tim.baker.906',
+    linkedin: 'https://www.linkedin.com/in/tim-baker-8420009a/',
+    instagram: 'http://instagram.com/tbakerx',
+    'stack-overflow': 'https://stackoverflow.com/users/8553186/tim-baker?tab=profile',
+    github: 'http://github.com/tbakerx',
+  },
+  experience: [],
+  education: [],
+  techSkills: [],
+  softSkills: [],
+  interests: [],
+  testimonials: [],
+  portfolio: [],
+  imageURL: 'https://source.unsplash.com/random',
+};
+
+export const demoUserData: UserData = {
+  ...initialUserData,
+  isPublic: true,
+  userName: 'peshko',
   fullName: 'Peshko In The House',
-  employer: 'experience[0].company',
   bio:
     'Hi I am Akshay Saini, a 25 year old Web developer, YouTuber, and a Digital Marketer living in Hyderabad, India. I am a Computer Science Engineer, currently working with awesome folks at Uber. Have a look at my YouTube Channel, skills or just connect with me on LinkedIn. I am always excited to do business with like minded people, lets discuss over coffee.',
   shortDescriptions: ['I am unique', 'I am amazing', 'I am ... '],
   actionButtonText: 'Coffee with me',
-  email: '@gmail',
-  phone: '(250) 793-0920',
+
   countryOfResidence: 'Bulgaria',
-  resumeUrl: '....',
-  social: [
-    {
-      name: 'facebook',
-      url: 'http://facebook.com/tim.baker.906',
-      className: 'fa fa-facebook',
-    },
-    {
-      name: 'linkedin',
-      url: 'https://www.linkedin.com/in/tim-baker-8420009a/',
-      className: 'fa fa-linkedin',
-    },
-    {
-      name: 'instagram',
-      url: 'http://instagram.com/tbakerx',
-      className: 'fa fa-instagram',
-    },
-    {
-      name: 'stack-overflow',
-      url: 'https://stackoverflow.com/users/8553186/tim-baker?tab=profile',
-      className: 'fa fa-stack-overflow',
-    },
-    {
-      name: 'github',
-      url: 'http://github.com/tbakerx',
-      className: 'fa fa-github',
-    },
-  ],
+
+  social: {
+    facebook: 'http://facebook.com/tim.baker.906',
+    linkedin: 'https://www.linkedin.com/in/tim-baker-8420009a/',
+    instagram: 'http://instagram.com/tbakerx',
+    'stack-overflow': 'https://stackoverflow.com/users/8553186/tim-baker?tab=profile',
+    github: 'http://github.com/tbakerx',
+  },
+
   experience: [
     {
       companyName: 'Shop Your Own Mortgage',
@@ -75,56 +82,64 @@ export const userDataDemo: UserData = {
         'I attended GPRC for my first 2 years of post-secondary on a scholarship for the college soccer team. While here, I studied Computer Systems Technology, a 2 year lead-in to a Bachelors of Computer Science. This was a very hands-on experience focused more on building projects than general theory. Here I built database structures for fictional companies, created small video games, hand-coded Space Invaders from scratch in Assembly Language, built and coded an Arduino Robot to navigate obstacle courses, a lot of Java and C++ programming for data structures, and much more.',
     },
   ],
-  skills: [
+  techSkills: [
     {
       name: 'Git',
       description:
         'I use Git for all of my projects so far. I have used Git for version control in small teams and have toyed around with contributing to Open Source Projects.',
-      image: 'git.jpg',
+      level: 88,
     },
     {
       name: 'Java',
       description:
         'Java was my first programming language that I started using in college years ago. It is by far the language I am most familiar with in terms of data-structure and algorithm programming.',
-      image: 'java.jpg',
+      level: 88,
     },
     {
       name: 'React Js',
       description:
         'I am fairly new to React and really did not like it at first. It has grown on me though and I will continue to use it going forward. I have built a ReactJS based resume-website template (link below in portfolio) which I used as a starting point for this personal site.',
-      image: 'react.jpg',
+      level: 88,
     },
     {
       name: 'Meteor JS',
       description:
         "I enjoy MeteorJS for it's ease of configuration and its ability to get a full stack prototype up and running quickly. I used MeteorJS in a team for a Startup Programming class in UVIC in conjunction with React to build the MVP for Smirkspace (below in portfolio)",
-      image: 'meteor.jpg',
+      level: 88,
     },
 
     {
       name: 'Node JS',
       description:
         'Node JS is my server-side scripting language of choice. The bulk of my experience with it has been in conjunction with MeteorJS-based projects',
-      image: 'node.jpg',
+      level: 88,
     },
     {
       name: 'Bootstrap 4',
       description:
         'I use Bootstrap more often than not when designing the layout for my sites. It is the framework I am most familiar with and can therefore design more quickly than with others.',
-      image: 'bootstrap.jpg',
+      level: 88,
     },
     {
       name: 'MongoDB',
       description:
         'I have used many different database systems and am better educated and experienced with Relational Databases. However, for many applications, the ease of use of MongoDB better suits my needs and it is much more enjoyable to work with',
-      image: 'mongo.jpg',
+      level: 88,
     },
+  ],
+  softSkills: [
     {
       name: 'Heroku',
       description:
         'I use Heroku as my hosting platform for most of my projects because so far they are all unpaid and their free tier is convenient. I also appreciate its integration with Github for such simple deployment.',
-      image: 'heroku.jpg',
+      level: 88,
     },
+  ],
+  interests: [
+    { name: 'Snowboarding', level: 100 },
+    { name: 'Driving', level: 98 },
+    { name: 'Football', level: 100 },
+    { name: 'React', level: 100 },
   ],
   portfolio: [
     {
@@ -158,13 +173,11 @@ export const userDataDemo: UserData = {
       url: 'http://www.smirkspace.com',
     },
   ],
-  testimonials: {
-    testimonials: [
-      {
-        text:
-          'I have had the opportunity to work with Tim on multiple occasions which has always been a pleasure. He is driven and motivated with a consistently positive attitude. Tim excels at communicating with others and is always willing to work hard until he solves the problem at hand.',
-        user: 'Alastair Beaumont - Web Developer at AppColony',
-      },
-    ],
-  },
+  testimonials: [
+    {
+      text:
+        'I have had the opportunity to work with Tim on multiple occasions which has always been a pleasure. He is driven and motivated with a consistently positive attitude. Tim excels at communicating with others and is always willing to work hard until he solves the problem at hand.',
+      user: 'Alastair Beaumont - Web Developer at AppColony',
+    },
+  ],
 };

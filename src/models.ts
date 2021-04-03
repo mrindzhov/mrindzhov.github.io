@@ -2,11 +2,13 @@ export interface IProps {
   children?: React.ReactChild | React.ReactChild[] | React.ReactNode | JSX.Element;
 }
 
-export interface Social {
-  name: string;
-  url: string;
-  className: string;
-}
+export type Social = {
+  facebook: string;
+  linkedin: string;
+  instagram: string;
+  'stack-overflow': string;
+  github: string;
+};
 
 export interface Experience {
   companyName: string;
@@ -26,8 +28,8 @@ export interface Education {
 
 export interface Skill {
   name: string;
-  description: string;
-  image: string;
+  level: number;
+  description?: string;
 }
 
 export interface Portfolio {
@@ -42,25 +44,22 @@ export interface Testimonial {
   user: string;
 }
 
-export interface Testimonials {
-  testimonials: Testimonial[];
-}
-
 export interface UserData {
+  isPublic: boolean;
   fullName: string;
+  userName: string;
   imageURL: string;
-  employer: string;
   bio: string;
   shortDescriptions: string[];
   actionButtonText: string;
-  email: string;
-  phone: string;
   countryOfResidence: string;
   resumeUrl: string;
-  social: Social[];
+  social: Social;
   experience: Experience[];
   education: Education[];
-  skills: Skill[];
+  softSkills: Skill[];
+  techSkills: Skill[];
+  interests: Skill[];
   portfolio: Portfolio[];
-  testimonials: Testimonials;
+  testimonials: Testimonial[];
 }

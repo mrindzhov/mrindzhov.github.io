@@ -7,11 +7,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { Alert } from '@material-ui/lab';
-import { useEffect, useState } from 'react';
-import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
-import { NavLink } from 'react-router-dom';
-import { firebaseAuth } from '../App/firebase';
+import React, { useEffect, useState } from 'react';
+import { useAuthState, useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { NavLink, Redirect } from 'react-router-dom';
+import { firebaseAuth, firebaseDatabase } from '../App/firebase';
 import UserEntrance from '../components/UserEntrance';
+import { UserData } from '../models';
+import { initialUserData } from './mockData';
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -27,11 +29,23 @@ export default function SignUp() {
   const classes = useStyles();
 
   const [signUpForm, setSignUpForm] = useState({ firstName: '', lastName: '', email: '', password: '' });
-  const [createUserWithEmailAndPassword, user, , error] = useCreateUserWithEmailAndPassword(firebaseAuth);
-
+  const [createUserWithEmailAndPassword, , , error] = useCreateUserWithEmailAndPassword(firebaseAuth);
+  const [user] = useAuthState(firebaseAuth);
   useEffect(() => {
-    if (user) firebaseAuth.currentUser?.updateProfile({ displayName: 'Martin Indzhov' });
-  }, [user]);
+    if (user) {
+      firebaseDatabase
+        .ref('users/' + user.uid)
+        .set({
+          ...initialUserData,
+          fullName: `${signUpForm.firstName} ${signUpForm.lastName}`,
+          userName: user.email,
+        } as UserData)
+
+        .then((a) => {
+          console.log(a);
+        });
+    }
+  }, [user, signUpForm]);
 
   const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -40,6 +54,10 @@ export default function SignUp() {
 
   const setFormField = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
     setSignUpForm((s) => ({ ...s, [e.target.name]: e.target.value }));
+
+  if (user) {
+    return <Redirect to='/dashboard' />;
+  }
 
   return (
     <UserEntrance title='Sign Up' icon={<LockOutlinedIcon />}>

@@ -7,11 +7,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { Alert } from '@material-ui/lab';
-import { useEffect, useState } from 'react';
-import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useState } from 'react';
+import { useAuthState, useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { Redirect } from 'react-router';
 import { NavLink } from 'react-router-dom';
-import { firebaseAuth, firebaseDatabase } from '../App/firebase';
+import { firebaseAuth } from '../App/firebase';
 import UserEntrance from '../components/UserEntrance';
 
 const useStyles = makeStyles((theme) => ({
@@ -26,24 +26,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn() {
   const classes = useStyles();
-  const [signInWithEmailAndPassword, user, , error] = useSignInWithEmailAndPassword(firebaseAuth);
-  // const [user] = useAuthState(firebaseAuth);
-  useEffect(() => {
-    if (user && user.user) {
-      firebaseDatabase
-        .ref('users/' + user.user.uid)
-        .set({
-          username: 'me',
-          publicName: 'Martin Indzhov',
-          occupation: 'Software Security Engineer',
-        })
-        .then((a) => {
-          console.log(a);
-        });
-    }
-  }, [user]);
-
+  const [signInWithEmailAndPassword, , , error] = useSignInWithEmailAndPassword(firebaseAuth);
   const [signInForm, setSignInForm] = useState({ email: '', password: '' });
+  const [user] = useAuthState(firebaseAuth);
 
   const setFormField = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
     setSignInForm((s) => ({ ...s, [e.target.name]: e.target.value }));

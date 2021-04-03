@@ -6,13 +6,13 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import { Book, Comment, ExitToAppOutlined, Flag, Person, Work } from '@material-ui/icons';
+import { Book, Comment, ExitToAppOutlined, Flag, Person, Visibility, Work } from '@material-ui/icons';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import LayersIcon from '@material-ui/icons/Layers';
 import clsx from 'clsx';
 import { NavLink } from 'react-router-dom';
 import { firebaseAuth } from '../../App/firebase';
-import { useDashboard } from '../../dashboard.context';
+import { useDashboard } from '../../dashboardContext';
 import { BasicsSetup } from '../BasicsSetup';
 import SkillsSetup from '../Skills/SkillsSetup';
 
@@ -105,7 +105,7 @@ export const DashboardListItems = () => {
   return (
     <div>
       {dashboardPages.map(({ to, text, icon, component }) => (
-        <ListItem button component={NavLink} to={'/dashboard' + to}>
+        <ListItem button component={NavLink} to={'/dashboard' + to} key={to}>
           <ListItemIcon className={component ? classes.primaryIcon : classes.icon}>{icon}</ListItemIcon>
           <ListItemText primary={text} />
         </ListItem>
@@ -114,14 +114,24 @@ export const DashboardListItems = () => {
   );
 };
 
-export const SecondaryListItems = () => (
-  <div>
-    {/* <ListSubheader inset>Saved reports</ListSubheader> */}
-    <ListItem button onClick={() => firebaseAuth.signOut()}>
-      <ListItemIcon>
-        <ExitToAppOutlined />
-      </ListItemIcon>
-      <ListItemText primary='Log Out' />
-    </ListItem>
-  </div>
-);
+export const SecondaryListItems = () => {
+  const { username } = useDashboard();
+  return (
+    <div>
+      {/* <ListSubheader inset>Saved reports</ListSubheader> */}
+      <ListItem component={NavLink} to={`/${username}`}>
+        <ListItemIcon>
+          <Visibility />
+        </ListItemIcon>
+        <ListItemText primary='Preview' />
+      </ListItem>
+
+      <ListItem button onClick={() => firebaseAuth.signOut()}>
+        <ListItemIcon>
+          <ExitToAppOutlined />
+        </ListItemIcon>
+        <ListItemText primary='Log Out' />
+      </ListItem>
+    </div>
+  );
+};

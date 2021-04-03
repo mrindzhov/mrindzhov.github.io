@@ -1,14 +1,22 @@
+import { Fab } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
+import { Save } from '@material-ui/icons';
+
 import { Route } from 'react-router-dom';
 import DashboardDrawer, { dashboardPages, drawerWidth } from '../components/Dashboard/DashboardDrawer';
 import Header from '../components/Header';
-import { DashboardProvider } from '../dashboard.context';
 import { Papered } from '../components/Papered';
+import { DashboardProvider, useDashboard } from '../dashboardContext';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+  },
+  rootFab: {
+    position: 'fixed',
+    bottom: theme.spacing(6),
+    right: theme.spacing(6),
   },
   appBarShift: {
     marginLeft: drawerWidth,
@@ -21,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   appBarSpacer: theme.mixins.toolbar,
   content: {
     flexGrow: 1,
-    height: '100vh',
+    height: '91vh',
     overflow: 'auto',
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2),
@@ -33,27 +41,43 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function DashboardContainer() {
-  const classes = useStyles();
-
   return (
     <DashboardProvider>
-      <div className={classes.root}>
-        <Header />
-        <DashboardDrawer />
-
-        <Container maxWidth='xl' className={classes.container}>
-          <main className={classes.content}>
-            <div className={classes.appBarSpacer} />
-            {dashboardPages.map(({ to, component, text }) => (
-              <Route
-                exact
-                path={'/dashboard' + to}
-                render={() => component ?? <Papered title={`${text} page to be implemented`} />}
-              />
-            ))}
-          </main>
-        </Container>
-      </div>
+      <Dashboard />
     </DashboardProvider>
+  );
+}
+
+function Dashboard() {
+  const classes = useStyles();
+  const { hasChanges, saveChanges } = useDashboard();
+
+  return (
+    <div className={classes.root}>
+      <Header />
+      <DashboardDrawer />
+
+      <Container maxWidth='xl' className={classes.container}>
+        <main className={classes.content}>
+          <div className={classes.appBarSpacer} />
+          {dashboardPages.map(({ to, component, text }) => (
+            <Route
+              exact
+              key={to}
+              path={'/dashboard' + to}
+              render={() => component ?? <Papered title={`${text} page to be implemented`} />}
+            />
+          ))}
+        </main>
+      </Container>
+      {hasChanges && (
+        <div onClick={() => saveChanges()} role='presentation' className={classes.rootFab}>
+          <Fab variant='extended' color='primary' aria-label='add'>
+            <Save />
+            Save changes
+          </Fab>
+        </div>
+      )}
+    </div>
   );
 }

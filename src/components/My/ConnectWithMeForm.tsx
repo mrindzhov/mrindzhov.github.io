@@ -92,7 +92,6 @@ export default function ConnectWithMeForm(user: UserData) {
                   fullWidth
                   multiline
                   rows={3}
-                  autoFocus
                   label='Your message to me'
                   name='message'
                   onChange={setFormField}

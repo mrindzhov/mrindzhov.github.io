@@ -13,8 +13,8 @@ export const Routes = () => (
     <RouteWrapper exact path='/' render={() => <HomePage />} publicOnly />
     <RouteWrapper path='/dashboard' render={() => <Dashboard />} privateOnly />
 
-    <RouteWrapper exact path='/sign/in' render={() => <SignIn />} publicOnly />
-    <RouteWrapper exact path='/sign/up' render={() => <SignUp />} publicOnly />
+    <RouteWrapper exact path='/sign/in' render={() => <SignIn />} />
+    <RouteWrapper exact path='/sign/up' render={() => <SignUp />} />
 
     <RouteWrapper exact path='/:userName' render={() => <PublicCVPage />} />
   </Switch>

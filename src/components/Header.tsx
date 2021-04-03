@@ -9,8 +9,8 @@ import clsx from 'clsx';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { NavLink } from 'react-router-dom';
 import { firebaseAuth } from '../App/firebase';
-import { useDashboard } from '../dashboard.context';
-const drawerWidth = 240;
+import { useDashboard } from '../dashboardContext';
+import { drawerWidth } from './Dashboard/DashboardDrawer';
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: { flexGrow: 1 },
