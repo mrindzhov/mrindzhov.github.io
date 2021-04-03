@@ -12,7 +12,7 @@ export interface WebSkillsProps extends IProps {
   fill?: string;
 }
 
-export function UserSkillsChart({ data, stroke, fill }: WebSkillsProps) {
+export function SkillsChart({ data, stroke, fill }: WebSkillsProps) {
   const { palette } = useTheme();
   return (
     <ResponsiveContainer width='100%' height='100%'>

@@ -1,4 +1,7 @@
 import { createContext, useContext, useState } from 'react';
+import { UserData } from './models';
+
+type UserDataSate = UserData;
 
 type DrawerState = {
   open: boolean;

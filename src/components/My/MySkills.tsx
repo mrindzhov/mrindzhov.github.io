@@ -1,7 +1,7 @@
 import { Container, Grid, IconButton, makeStyles, Typography } from '@material-ui/core';
 import { CloudDownload } from '@material-ui/icons';
 import { UserData } from '../../models';
-import { RadarData, UserSkillsChart } from './UserSkillsChart';
+import { RadarData, SkillsChart } from '../Skills/SkillsChart';
 
 const useStyles = makeStyles((theme) => ({
   flex: {
@@ -31,13 +31,13 @@ export default function MySkills(user: UserData) {
       <Typography variant='h3'>Skills.</Typography>
       <Grid container justify='center'>
         <Grid item md={6} className={classes.skills}>
-          <UserSkillsChart data={data} />
+          <SkillsChart data={data} />
         </Grid>
         <Grid item md={6} className={classes.skills}>
-          <UserSkillsChart data={data} />
+          <SkillsChart data={data} />
         </Grid>
         <Grid item md={6} className={classes.skills}>
-          <UserSkillsChart data={data} />
+          <SkillsChart data={data} />
         </Grid>
       </Grid>
 

@@ -1,18 +1,64 @@
+import { makeStyles } from '@material-ui/core';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import { Book, Comment, ExitToAppOutlined, Flag, Person, Work } from '@material-ui/icons';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import LayersIcon from '@material-ui/icons/Layers';
 import clsx from 'clsx';
-import React from 'react';
+import { NavLink } from 'react-router-dom';
+import { firebaseAuth } from '../../App/firebase';
 import { useDashboard } from '../../dashboard.context';
-import { useStyles } from '../../pages/Dashboard';
-import { mainListItems, secondaryListItems } from '../../pages/listItems';
+import { BasicsSetup } from '../BasicsSetup';
+import SkillsSetup from '../Skills/SkillsSetup';
+
+export const drawerWidth = 240;
+
+const useStyles = makeStyles((theme) => ({
+  toolbarIcon: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    padding: '0 8px',
+    ...theme.mixins.toolbar,
+  },
+
+  drawerPaper: {
+    position: 'relative',
+    whiteSpace: 'nowrap',
+    width: drawerWidth,
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
+  drawerPaperClose: {
+    overflowX: 'hidden',
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    width: theme.spacing(7),
+    [theme.breakpoints.up('sm')]: {
+      width: theme.spacing(9),
+    },
+  },
+  icon: {
+    color: 'red',
+  },
+  primaryIcon: {
+    color: theme.palette.primary.main,
+  },
+}));
 
 export default function DashboardDrawer() {
   const classes = useStyles();
   const { open, setDrawerState } = useDashboard();
-  
+
   return (
     <Drawer
       variant='permanent'
@@ -26,9 +72,56 @@ export default function DashboardDrawer() {
         </IconButton>
       </div>
       <Divider />
-      <List>{mainListItems}</List>
+      <List>
+        <DashboardListItems />
+      </List>
       <Divider />
-      <List>{secondaryListItems}</List>
+      <List>
+        <SecondaryListItems />
+      </List>
     </Drawer>
   );
 }
+
+type RouteElement = {
+  to: string;
+  text: string;
+  icon: JSX.Element;
+  component: JSX.Element | null;
+};
+
+export const dashboardPages: RouteElement[] = [
+  { to: '/', text: 'Basic', icon: <Person />, component: <BasicsSetup /> },
+  { to: '/experience', text: 'Experience', icon: <Work />, component: null },
+  { to: '/education', text: 'Education', icon: <Book />, component: null },
+  { to: '/skills', text: 'Skills', icon: <Flag />, component: <SkillsSetup /> },
+  { to: '/portfolio', text: 'Portfolio', icon: <LayersIcon />, component: null },
+  { to: '/testimonials', text: 'Testimontials', icon: <Comment />, component: null },
+];
+
+export const DashboardListItems = () => {
+  const classes = useStyles();
+
+  return (
+    <div>
+      {dashboardPages.map(({ to, text, icon, component }) => (
+        <ListItem button component={NavLink} to={'/dashboard' + to}>
+          <ListItemIcon className={component ? classes.primaryIcon : classes.icon}>{icon}</ListItemIcon>
+          <ListItemText primary={text} />
+        </ListItem>
+      ))}
+    </div>
+  );
+};
+
+export const SecondaryListItems = () => (
+  <div>
+    {/* <ListSubheader inset>Saved reports</ListSubheader> */}
+    <ListItem button onClick={() => firebaseAuth.signOut()}>
+      <ListItemIcon>
+        <ExitToAppOutlined />
+      </ListItemIcon>
+      <ListItemText primary='Log Out' />
+    </ListItem>
+  </div>
+);

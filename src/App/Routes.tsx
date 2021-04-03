@@ -11,7 +11,7 @@ import { firebaseAuth } from './firebase';
 export const Routes = () => (
   <Switch>
     <RouteWrapper exact path='/' render={() => <HomePage />} publicOnly />
-    <RouteWrapper exact path='/dashboard' render={() => <Dashboard />} privateOnly />
+    <RouteWrapper path='/dashboard' render={() => <Dashboard />} privateOnly />
 
     <RouteWrapper exact path='/sign/in' render={() => <SignIn />} publicOnly />
     <RouteWrapper exact path='/sign/up' render={() => <SignUp />} publicOnly />
