@@ -1,6 +1,8 @@
 import { Container, makeStyles } from '@material-ui/core';
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { firebaseAuth } from '../App/firebase';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -14,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const Copyright = () => {
   const classes = useStyles();
+  const [user] = useAuthState(firebaseAuth);
 
   return (
     <Container maxWidth='lg' className={classes.container}>
@@ -23,11 +26,13 @@ export const Copyright = () => {
         {'.'}
       </Typography>
       <br />
-      <Typography variant='caption' color='textSecondary' align='center'>
-        <Link color='inherit' href='http://localhost:3000/'>
-          Click here to create yours
-        </Link>
-      </Typography>
+      {!user && (
+        <Typography variant='caption' color='textSecondary' align='center'>
+          <Link color='inherit' href='http://localhost:3000/'>
+            Click here to create yours
+          </Link>
+        </Typography>
+      )}
     </Container>
   );
 };

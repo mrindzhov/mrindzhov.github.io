@@ -1,29 +1,15 @@
-import AppBar from '@material-ui/core/AppBar';
-import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
 import clsx from 'clsx';
 import React from 'react';
 import Chart from '../components/Dashboard/Chart';
+import DashboardDrawer from '../components/Dashboard/DashboardDrawer';
 import Deposits from '../components/Dashboard/Deposits';
 import Orders from '../components/Dashboard/Orders';
-
-function Copyright() {
-  return (
-    <Typography variant='body2' color='textSecondary' align='center'>
-      {'Copyright © '}
-      <Link color='inherit' href='https://material-ui.com/'>
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import Header from '../components/Header';
+import { DashboardProvider } from '../dashboard.context';
 
 const drawerWidth = 240;
 
@@ -104,51 +90,68 @@ export const useStyles = makeStyles((theme) => ({
   fixedHeight: {
     height: 240,
   },
+
+  main: {
+    marginTop: theme.spacing(8),
+    marginBottom: theme.spacing(2),
+  },
+  footer: {
+    width: '100%',
+    padding: theme.spacing(3, 2),
+    marginTop: 'auto',
+    backgroundColor: theme.palette.type === 'light' ? theme.palette.grey[200] : theme.palette.grey[800],
+  },
+  fullWidth: {
+    width: '100%',
+  },
 }));
 
-export default function Dashboard() {
+export default function DashboardContainer() {
   const classes = useStyles();
-  const [open] = React.useState(true);
-  // const handleDrawerOpen = () => {
-  //   setOpen(true);
-  // };
-  // const handleDrawerClose = () => {
-  //   setOpen(false);
-  // };
+
+  return (
+    <DashboardProvider>
+      <div className={classes.root}>
+        <Header />
+
+        <DashboardDrawer />
+        <Container component='main' className={classes.main}>
+          <Dashboard />
+        </Container>
+      </div>
+    </DashboardProvider>
+  );
+}
+
+export function Dashboard() {
+  const classes = useStyles();
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   return (
-    <div className={classes.root}>
-      <AppBar position='absolute' className={clsx(classes.appBar, open && classes.appBarShift)}></AppBar>
-
-      <main className={classes.content}>
-        <div className={classes.appBarSpacer} />
-        <Container maxWidth='lg' className={classes.container}>
-          <Grid container spacing={3}>
-            {/* Chart */}
-            <Grid item xs={12} md={8} lg={9}>
-              <Paper className={fixedHeightPaper}>
-                <Chart />
-              </Paper>
-            </Grid>
-            {/* Recent Deposits */}
-            <Grid item xs={12} md={4} lg={3}>
-              <Paper className={fixedHeightPaper}>
-                <Deposits />
-              </Paper>
-            </Grid>
-            {/* Recent Orders */}
-            <Grid item xs={12}>
-              <Paper className={classes.paper}>
-                <Orders />
-              </Paper>
-            </Grid>
+    <main className={classes.content}>
+      <div className={classes.appBarSpacer} />
+      <Container maxWidth='lg' className={classes.container}>
+        <Grid container spacing={3}>
+          {/* Chart */}
+          <Grid item xs={12} md={8} lg={9}>
+            <Paper className={fixedHeightPaper}>
+              <Chart />
+            </Paper>
           </Grid>
-          <Box pt={4}>
-            <Copyright />
-          </Box>
-        </Container>
-      </main>
-    </div>
+          {/* Recent Deposits */}
+          <Grid item xs={12} md={4} lg={3}>
+            <Paper className={fixedHeightPaper}>
+              <Deposits />
+            </Paper>
+          </Grid>
+          {/* Recent Orders */}
+          <Grid item xs={12}>
+            <Paper className={classes.paper}>
+              <Orders />
+            </Paper>
+          </Grid>
+        </Grid>
+      </Container>
+    </main>
   );
 }

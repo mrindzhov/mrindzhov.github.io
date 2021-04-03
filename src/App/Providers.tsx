@@ -1,4 +1,4 @@
-import { createMuiTheme, ThemeProvider } from '@material-ui/core';
+import { createMuiTheme, CssBaseline, ThemeProvider } from '@material-ui/core';
 import { pink } from '@material-ui/core/colors';
 import { IProps } from '../models';
 
@@ -10,5 +10,10 @@ const theme = createMuiTheme({
 });
 
 export const Providers = ({ children }: IProps) => {
-  return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      {children}
+    </ThemeProvider>
+  );
 };

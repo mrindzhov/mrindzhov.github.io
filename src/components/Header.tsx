@@ -1,7 +1,7 @@
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -9,38 +9,49 @@ import clsx from 'clsx';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { NavLink } from 'react-router-dom';
 import { firebaseAuth } from '../App/firebase';
-import { useDrawer } from './Dashboard/DashboardDrawer';
+import { useDashboard } from '../dashboard.context';
+const drawerWidth = 240;
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: { flexGrow: 1 },
-    menuButton: { marginRight: theme.spacing(2) },
-    title: { flexGrow: 1 },
-    menuButtonHidden: { display: 'none' },
-  })
-);
+const useStyles = makeStyles((theme: Theme) => ({
+  root: { flexGrow: 1 },
+  menuButton: { marginRight: theme.spacing(2) },
+  title: { flexGrow: 1 },
+  menuButtonHidden: { display: 'none' },
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+  },
+  appBarShift: {
+    marginLeft: drawerWidth,
+    width: `calc(100% - ${drawerWidth}px)`,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
+}));
 
 export default function Header() {
   const classes = useStyles();
   const [user] = useAuthState(firebaseAuth);
-  const [drawer, open, close] = useDrawer();
+  const { open, setDrawerState } = useDashboard();
   return (
-    <AppBar position='static'>
-      {drawer}
+    <AppBar position='absolute' className={clsx(classes.appBar, open && classes.appBarShift)}>
       <Toolbar>
-        {!!user && (
-          <IconButton
-            edge='start'
-            className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
-            color='inherit'
-            aria-label='menu'
-            onClick={() => {}}>
-            <MenuIcon />
-          </IconButton>
-        )}
+        <IconButton
+          edge='start'
+          className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
+          color='inherit'
+          onClick={() => setDrawerState(true)}>
+          <MenuIcon />
+        </IconButton>
+
         <Typography variant='h6' className={classes.title}>
           <Button color='inherit' component={NavLink} variant='text' to='/dashboard'>
-            Home
+            Dashboard
           </Button>
         </Typography>
         {!user && (
@@ -53,16 +64,6 @@ export default function Header() {
             </Button>
           </>
         )}
-        {user && (
-          <Button color='inherit' variant='text' onClick={() => firebaseAuth.signOut()}>
-            Log out
-          </Button>
-        )}
-        {/* <IconButton color='inherit'>
-            <Badge badgeContent={4} color='secondary'>
-              <NotificationsIcon />
-            </Badge>
-          </IconButton> */}
       </Toolbar>
     </AppBar>
   );

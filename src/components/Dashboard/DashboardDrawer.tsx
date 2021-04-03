@@ -1,21 +1,19 @@
-import React, { useCallback } from 'react';
-import clsx from 'clsx';
-import Drawer from '@material-ui/core/Drawer';
-import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
+import Drawer from '@material-ui/core/Drawer';
 import IconButton from '@material-ui/core/IconButton';
+import List from '@material-ui/core/List';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import { mainListItems, secondaryListItems } from '../../pages/listItems';
+import clsx from 'clsx';
+import React from 'react';
+import { useDashboard } from '../../dashboard.context';
 import { useStyles } from '../../pages/Dashboard';
+import { mainListItems, secondaryListItems } from '../../pages/listItems';
 
-export function useDrawer() {
+export default function DashboardDrawer() {
   const classes = useStyles();
-
-  const [open, setOpen] = React.useState(false);
-  const handleDrawerOpen = useCallback(() => setOpen(true), []);
-  const handleDrawerClose = useCallback(() => setOpen(false), []);
-
-  const drawer = (
+  const { open, setDrawerState } = useDashboard();
+  
+  return (
     <Drawer
       variant='permanent'
       classes={{
@@ -23,7 +21,7 @@ export function useDrawer() {
       }}
       open={open}>
       <div className={classes.toolbarIcon}>
-        <IconButton onClick={handleDrawerClose}>
+        <IconButton onClick={() => setDrawerState(false)}>
           <ChevronLeftIcon />
         </IconButton>
       </div>
@@ -33,6 +31,4 @@ export function useDrawer() {
       <List>{secondaryListItems}</List>
     </Drawer>
   );
-
-  return [drawer, handleDrawerOpen, handleDrawerClose, open];
 }
