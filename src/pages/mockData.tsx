@@ -1,3 +1,4 @@
+import { createDefaultSocialLinks } from '../components/My/socialLinksInfo';
 import { UserData } from '../models';
 
 export const initialUserData: UserData = {
@@ -9,13 +10,8 @@ export const initialUserData: UserData = {
   actionButtonText: 'Call to action for ineraction',
   countryOfResidence: 'Bulgaria',
   resumeUrl: 'http://ipv4.download.thinkbroadband.com/5MB.zip',
-  social: {
-    facebook: 'http://facebook.com/tim.baker.906',
-    linkedin: 'https://www.linkedin.com/in/tim-baker-8420009a/',
-    instagram: 'http://instagram.com/tbakerx',
-    'stack-overflow': 'https://stackoverflow.com/users/8553186/tim-baker?tab=profile',
-    github: 'http://github.com/tbakerx',
-  },
+  imageURL: 'https://source.unsplash.com/random',
+  social: createDefaultSocialLinks(),
   experience: [],
   education: [],
   techSkills: [],
@@ -23,7 +19,6 @@ export const initialUserData: UserData = {
   interests: [],
   testimonials: [],
   portfolio: [],
-  imageURL: 'https://source.unsplash.com/random',
 };
 
 export const demoUserData: UserData = {
@@ -39,11 +34,11 @@ export const demoUserData: UserData = {
   countryOfResidence: 'Bulgaria',
 
   social: {
-    facebook: 'http://facebook.com/tim.baker.906',
-    linkedin: 'https://www.linkedin.com/in/tim-baker-8420009a/',
-    instagram: 'http://instagram.com/tbakerx',
-    'stack-overflow': 'https://stackoverflow.com/users/8553186/tim-baker?tab=profile',
-    github: 'http://github.com/tbakerx',
+    facebook: 'tim.baker.906',
+    linkedin: 'tim-baker-8420009a/',
+    instagram: 'tbakerx',
+    'stack-overflow': '8553186/tim-baker',
+    github: 'tbakerx',
   },
 
   experience: [

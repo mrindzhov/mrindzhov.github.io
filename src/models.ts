@@ -3,11 +3,13 @@ export interface IProps {
 }
 
 export type Social = {
-  facebook: string;
-  linkedin: string;
-  instagram: string;
-  'stack-overflow': string;
-  github: string;
+  facebook?: string;
+  youtube?: string;
+  instagram?: string;
+  linkedin?: string;
+  github?: string;
+  'stack-overflow'?: string;
+  email?: string;
 };
 
 export interface Experience {

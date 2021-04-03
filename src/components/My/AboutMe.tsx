@@ -1,14 +1,7 @@
 import { Avatar, Container, Grid, IconButton, makeStyles, Typography } from '@material-ui/core';
-import { Email, Facebook, LinkedIn, YouTube } from '@material-ui/icons';
 import React from 'react';
 import { UserData } from '../../models';
-
-const socialLinks = {
-  facebook: () => <Facebook />,
-  linkedin: () => <LinkedIn />,
-  youtube: () => <YouTube color='error' />,
-  email: () => <Email color='primary' />,
-};
+import { socialLinksInfo } from './socialLinksInfo';
 
 const useStyles = makeStyles((theme) => ({
   large: {
@@ -32,9 +25,9 @@ export default function AboutMe(user: UserData) {
         <Grid item md={4} sm={12} className={classes.flex}>
           <Avatar src='https://source.unsplash.com/random' className={classes.large} />
           <div>
-            {Object.values(socialLinks).map((socialLink, i) => (
+            {socialLinksInfo.map(({ component }, i) => (
               <IconButton size='medium' key={i}>
-                {socialLink()}
+                {component}
               </IconButton>
             ))}
           </div>

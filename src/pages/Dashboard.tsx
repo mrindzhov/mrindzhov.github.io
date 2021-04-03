@@ -12,6 +12,7 @@ import { DashboardProvider, useDashboard } from '../dashboardContext';
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+    height: '100vh',
   },
   rootFab: {
     position: 'fixed',
@@ -29,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   appBarSpacer: theme.mixins.toolbar,
   content: {
     flexGrow: 1,
-    height: '91vh',
+    height: '100%',
     overflow: 'auto',
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2),
