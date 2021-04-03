@@ -24,8 +24,8 @@ export default function MyIntro(user: UserData) {
         </Typography>
         {/* https://material-ui.com/components/steppers/#text-with-carousel-effect */}
         {/* TODO: I am{' '} */}
-        {user.shortDescriptions.map((d) => (
-          <Typography variant='h5' align='center' color='textSecondary' paragraph>
+        {user.shortDescriptions.map((d, i) => (
+          <Typography key={i} variant='h5' align='center' color='textSecondary' paragraph>
             {d}
           </Typography>
         ))}

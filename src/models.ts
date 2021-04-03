@@ -32,7 +32,7 @@ export interface Skill {
 
 export interface Portfolio {
   title: string;
-  category: string;
+  description: string;
   image: string;
   url: string;
 }

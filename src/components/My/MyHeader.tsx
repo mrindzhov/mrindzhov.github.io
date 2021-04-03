@@ -13,8 +13,8 @@ export default function MyHeader() {
           { label: 'About', href: '#about' },
           { label: 'Skills', href: '#skills' },
           { label: 'Chat with me', href: '#chat' },
-        ].map(({ href, label: name }) => (
-          <Typography variant='h5'>
+        ].map(({ href, label: name }, i) => (
+          <Typography variant='h5' key={i}>
             <Button color='inherit' variant='text' href={href}>
               {name}
             </Button>

@@ -1,5 +1,6 @@
 import { Container, Grid, IconButton, makeStyles, Typography } from '@material-ui/core';
 import { CloudDownload } from '@material-ui/icons';
+import { UserData } from '../../models';
 import { RadarData, UserSkillsChart } from './UserSkillsChart';
 
 const useStyles = makeStyles((theme) => ({
@@ -13,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   skills: { height: 500, width: 500 },
 }));
 
-export default function MySkills() {
+export default function MySkills(user: UserData) {
   const classes = useStyles();
 
   const data: RadarData[] = [
