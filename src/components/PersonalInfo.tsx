@@ -1,74 +1,86 @@
-import { Checkbox, FormControlLabel, TextField } from '@material-ui/core';
+import { Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Switch, TextField } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
+import React from 'react';
 import { useDashboard } from '../dashboardContext';
 import { Papered } from './Papered';
 
 export function PersonalInfo() {
   const { userData, setUserData } = useDashboard();
 
-  // fullName: '',
-  // userName: '',
-  // isPublic: false,
-  // bio: 'Brag about yourself here',
-  // shortDescriptions: ['', ''],
-  // actionButtonText: 'Call to action for ineraction',
-  // countryOfResidence: 'Bulgaria',
-  // resumeUrl: 'http://ipv4.download.thinkbroadband.com/5MB.zip',
-  // imageURL: 'https://source.unsplash.com/random',
+  const publicFields = [
+    'isPublic',
+    'fullName',
+    'bio',
+    'userName',
+    'shortDescriptions',
+    'actionButtonText',
+    'countryOfResidence',
+    'resumeUrl',
+    'imageURL',
+  ];
+
+  const setField = ({ target: { value, name } }: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+    setUserData((prev) => ({
+      ...prev,
+      [name]: name === 'shortDescriptions' ? value.split('') : value,
+    }));
+  };
+
   return (
     <Papered title='Personal Info'>
       <Grid container spacing={3}>
-        <Grid item xs={12} sm={6}>
-          <TextField required id='firstName' name='firstName' label='First name' fullWidth autoComplete='given-name' />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField required id='lastName' name='lastName' label='Last name' fullWidth autoComplete='family-name' />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            required
-            id='address1'
-            name='address1'
-            label='Address line 1'
-            fullWidth
-            autoComplete='shipping address-line1'
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            id='address2'
-            name='address2'
-            label='Address line 2'
-            fullWidth
-            autoComplete='shipping address-line2'
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField required id='city' name='city' label='City' fullWidth autoComplete='shipping address-level2' />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField id='state' name='state' label='State/Province/Region' fullWidth />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id='zip'
-            name='zip'
-            label='Zip / Postal code'
-            fullWidth
-            autoComplete='shipping postal-code'
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField required id='country' name='country' label='Country' fullWidth autoComplete='shipping country' />
-        </Grid>
-        <Grid item xs={12}>
-          <FormControlLabel
-            control={<Checkbox color='secondary' name='saveAddress' value='yes' />}
-            label='Use this address for payment details'
-          />
-        </Grid>
+        {Object.entries(userData)
+          .filter(([key]) => publicFields.includes(key))
+          .sort(([key1], [key2]) => publicFields.indexOf(key2) - publicFields.indexOf(key1))
+          .reverse()
+          .map(([key, value]) => {
+            return (
+              <Grid item xs={12} sm={4} key={key}>
+                {key === 'isPublic' ? (
+                  <Grid item xs={12} sm={4}>
+                    <FormControl component='fieldset'>
+                      <FormLabel component='legend'>Make your profile public</FormLabel>
+                      <FormGroup>
+                        <FormControlLabel
+                          control={
+                            <Switch
+                              checked={userData.isPublic}
+                              onChange={(e) => setUserData((prev) => ({ ...prev, isPublic: !prev.isPublic }))}
+                              name='isPublic'
+                            />
+                          }
+                          label={userData.isPublic ? 'Public' : 'Private'}
+                        />
+                      </FormGroup>
+                    </FormControl>
+                  </Grid>
+                ) : (
+                  <TextField
+                    required
+                    rows={key === 'bio' ? 3 : undefined}
+                    multiline={key === 'bio'}
+                    name={key}
+                    label={toCapitalizedWord(key)}
+                    fullWidth
+                    autoComplete={key}
+                    onChange={setField}
+                    value={value}
+                  />
+                )}
+              </Grid>
+            );
+          })}
       </Grid>
     </Papered>
   );
+}
+
+function toCapitalizedWord(name: string) {
+  var words = name.match(/[A-Za-z][a-z]*/g) || [];
+
+  return words.map(capitalize).join(' ');
+}
+
+function capitalize(word: string) {
+  return word.charAt(0).toUpperCase() + word.substring(1);
 }

@@ -1,7 +1,6 @@
 import { InputAdornment, makeStyles, TextField } from '@material-ui/core';
 import React from 'react';
 import { useDashboard } from '../dashboardContext';
-import { Social } from '../models';
 import { socialLinksInfo } from './My/socialLinksInfo';
 import { Papered } from './Papered';
 
@@ -24,11 +23,12 @@ export function SocialLinksInfo() {
     <Papered title='Social Info'>
       {Object.entries(userData.social).map(([provider, userId]) => (
         <TextField
+          key={`${provider}-${userId}`}
           className={classes.margin}
           label={provider}
           name={provider}
           fullWidth
-          defaultValue={userData.social[provider as keyof Social]}
+          defaultValue={userId}
           onChange={setSocial}
           InputProps={{
             startAdornment: (
