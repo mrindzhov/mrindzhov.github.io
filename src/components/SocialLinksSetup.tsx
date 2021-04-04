@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function SocialLinksInfo() {
+export function SocialLinksSetup() {
   const classes = useStyles();
 
   const { userData, setUserData } = useDashboard();
@@ -23,7 +23,7 @@ export function SocialLinksInfo() {
     <Papered title='Social Info'>
       {Object.entries(userData.social).map(([provider, userId]) => (
         <TextField
-          key={`${provider}-${userId}`}
+          key={provider}
           className={classes.margin}
           label={provider}
           name={provider}

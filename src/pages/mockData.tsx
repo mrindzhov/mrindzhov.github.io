@@ -1,7 +1,7 @@
 import { createDefaultSocialLinks } from '../components/My/socialLinksInfo';
 import { UserData } from '../models';
 
-export const initialUserData: UserData = {
+export const initialUserDataState: UserData = {
   fullName: '',
   userName: '',
   isPublic: false,
@@ -22,7 +22,7 @@ export const initialUserData: UserData = {
 };
 
 export const demoUserData: UserData = {
-  ...initialUserData,
+  ...initialUserDataState,
   isPublic: true,
   userName: 'peshko',
   fullName: 'Peshko In The House',

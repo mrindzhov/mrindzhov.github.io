@@ -4,7 +4,7 @@ import React from 'react';
 import { useDashboard } from '../dashboardContext';
 import { Papered } from './Papered';
 
-export function PersonalInfo() {
+export function PersonalInfoSetup() {
   const { userData, setUserData } = useDashboard();
 
   const publicFields = [
@@ -22,7 +22,7 @@ export function PersonalInfo() {
   const setField = ({ target: { value, name } }: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     setUserData((prev) => ({
       ...prev,
-      [name]: name === 'shortDescriptions' ? value.split('') : value,
+      [name]: value,
     }));
   };
 

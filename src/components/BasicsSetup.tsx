@@ -4,8 +4,8 @@ import Paper from '@material-ui/core/Paper';
 import clsx from 'clsx';
 import React from 'react';
 import Orders from './Dashboard/Orders';
-import { PersonalInfo } from './PersonalInfo';
-import { SocialLinksInfo } from './SocialLinksInfo';
+import { PersonalInfoSetup } from './PersonalInfoSetup';
+import { SocialLinksSetup } from './SocialLinksSetup';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -27,13 +27,13 @@ export function BasicsSetup() {
     <Grid container spacing={3}>
       <Grid item xs={12} md={6} lg={9}>
         {/* <Paper className={fixedHeightPaper}> */}
-        <PersonalInfo />
+        <PersonalInfoSetup />
         {/* </Paper> */}
       </Grid>
 
       <Grid item xs={12} md={6} lg={3}>
         {/* <Paper className={fixedHeightPaper}> */}
-        <SocialLinksInfo />
+        <SocialLinksSetup />
         {/* </Paper> */}
       </Grid>
 

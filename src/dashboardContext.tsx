@@ -2,13 +2,12 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState } 
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { firebaseAuth, firebaseDatabase } from './App/firebase';
 import { UserData } from './models';
-import { demoUserData } from './pages/mockData';
+import { initialUserDataState } from './pages/mockData';
 
 type DrawerContextState = {
   open: boolean;
   hasChanges: boolean;
   saveChanges: () => void;
-  username: string;
   userData: UserData;
   setUserData: React.Dispatch<React.SetStateAction<UserData>>;
   setDrawerState: React.Dispatch<React.SetStateAction<boolean>>;
@@ -19,17 +18,24 @@ export const DashboardContext = createContext<DrawerContextState>({} as DrawerCo
 export function DashboardProvider({ children }: any) {
   const [drawerState, setDrawerState] = useState(true);
   const [user] = useAuthState(firebaseAuth);
-  const [initialUserData, setInitialUserData] = useState<UserData>(demoUserData);
-  const [userData, setUserData] = useState<UserData>(demoUserData);
+  const [initialUserData, setInitialUserData] = useState<UserData>(initialUserDataState);
+  const [userData, setUserData] = useState<UserData>(initialUserDataState);
 
   const hasChanges = useMemo(() => {
     return JSON.stringify(initialUserData) !== JSON.stringify(userData);
   }, [userData, initialUserData]);
 
-  const saveChanges = useCallback(() => {
-    console.log(userData);
-    //   if (user) firebaseAuth.currentUser?.updateProfile({ displayName: 'Martin Indzhov' });
-  }, [userData]);
+  const saveChanges = useCallback(async () => {
+    if (user) {
+      await firebaseDatabase.ref('users/' + user.uid).set({
+        ...initialUserDataState,
+        ...userData,
+        social: { ...initialUserDataState.social, ...userData.social },
+      } as UserData);
+
+      setInitialUserData(userData);
+    }
+  }, [user, userData]);
 
   useEffect(() => {
     if (user) {
@@ -49,7 +55,6 @@ export function DashboardProvider({ children }: any) {
       setDrawerState,
       hasChanges,
       saveChanges,
-      username: 'me',
       userData,
       setUserData,
     }),

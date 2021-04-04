@@ -115,17 +115,19 @@ export const DashboardListItems = () => {
 };
 
 export const SecondaryListItems = () => {
-  const { username } = useDashboard();
+  const { userData } = useDashboard();
   return (
     <div>
       {/* <ListSubheader inset>Saved reports</ListSubheader> */}
-      <ListItem component={NavLink} to={`/${username}`}>
-        <ListItemIcon>
-          <Visibility />
-        </ListItemIcon>
-        <ListItemText primary='Preview' />
-      </ListItem>
 
+      {userData?.isPublic && (
+        <ListItem component={NavLink} to={`/${userData.userName}`}>
+          <ListItemIcon>
+            <Visibility />
+          </ListItemIcon>
+          <ListItemText primary='Preview' />
+        </ListItem>
+      )}
       <ListItem button onClick={() => firebaseAuth.signOut()}>
         <ListItemIcon>
           <ExitToAppOutlined />

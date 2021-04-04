@@ -31,8 +31,9 @@ export default function MyWorkExperience({ experience }: { experience: Experienc
   return (
     <Container maxWidth='lg'>
       <Timeline align='alternate'>
+        {(!experience || !experience.length) && <Typography> I am fresh </Typography>}
         {experience
-          .sort((a, b) => (a.endDate?.getTime() ?? 0) - (b.endDate?.getTime() ?? 0))
+          ?.sort((a, b) => (a.endDate?.getTime() ?? 0) - (b.endDate?.getTime() ?? 0))
           .map(({ companyName, companyLogo, jobDescription, jobTitle, startDate, endDate }, i) => (
             <TimelineItem key={i}>
               <TimelineOppositeContent>

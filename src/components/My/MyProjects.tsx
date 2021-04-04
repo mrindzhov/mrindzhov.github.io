@@ -42,13 +42,14 @@ export default function MyProjects(user: UserData) {
   return (
     <Container className={classes.cardGrid} maxWidth='md'>
       <Grid container spacing={4}>
-        {user.portfolio.map(({ title, description }) => (
+        {!user.portfolio && <Typography> I am fresh </Typography>}
+        {user.portfolio?.map(({ title, description }) => (
           <Grid item key={title} xs={12} sm={6} md={4}>
             <Card className={classes.card}>
               <CardMedia className={classes.cardMedia} image='https://source.unsplash.com/random' title='Image title' />
               <CardContent className={classes.cardContent}>
                 <Typography gutterBottom variant='h5' component='h2'>
-                  {title}   
+                  {title}
                 </Typography>
                 <Typography>{description}</Typography>
               </CardContent>

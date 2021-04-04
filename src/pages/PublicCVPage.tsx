@@ -1,3 +1,4 @@
+import { LinearProgress } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
 import React, { useState } from 'react';
 import { useParams } from 'react-router';
@@ -11,11 +12,12 @@ import MyProjects from '../components/My/MyProjects';
 import MySkills from '../components/My/MySkills';
 import MyStats from '../components/My/MyStats';
 import MyWorkExperience from '../components/My/MyWorkExperience';
+import { UserData } from '../models';
 import { demoUserData } from './mockData';
 
 export default function PublicCVPage() {
   const { userName } = useParams<{ userName: string }>();
-  const [user] = useState(demoUserData);
+  const [user, setUser] = useState<UserData>();
 
   React.useEffect(() => {
     (() => {
@@ -25,15 +27,15 @@ export default function PublicCVPage() {
         .equalTo(userName)
         .once('value')
         .then((snapshot) => {
-          console.log('--', snapshot.val());
-
-          const username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
-          console.log(username);
+          const userData = Object.values(snapshot.val())[0] as UserData;
+          setUser(userData);
         });
     })();
   }, [userName]);
 
-  return (
+  return !user ? (
+    <LinearProgress />
+  ) : (
     <div>
       <MyHeader /*{...user}*/ />
       <Container>

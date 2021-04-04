@@ -13,7 +13,7 @@ import { NavLink, Redirect } from 'react-router-dom';
 import { firebaseAuth, firebaseDatabase } from '../App/firebase';
 import UserEntrance from '../components/UserEntrance';
 import { UserData } from '../models';
-import { initialUserData } from './mockData';
+import { initialUserDataState } from './mockData';
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -36,7 +36,7 @@ export default function SignUp() {
       firebaseDatabase
         .ref('users/' + user.uid)
         .set({
-          ...initialUserData,
+          ...initialUserDataState,
           fullName: `${signUpForm.firstName} ${signUpForm.lastName}`,
           userName: user.email,
         } as UserData)
