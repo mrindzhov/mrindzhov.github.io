@@ -79,24 +79,28 @@ export const demoUserData: UserData = {
   ],
   techSkills: [
     {
+      id: 1,
       name: 'Git',
       description:
         'I use Git for all of my projects so far. I have used Git for version control in small teams and have toyed around with contributing to Open Source Projects.',
       level: 88,
     },
     {
+      id: 2,
       name: 'Java',
       description:
         'Java was my first programming language that I started using in college years ago. It is by far the language I am most familiar with in terms of data-structure and algorithm programming.',
       level: 88,
     },
     {
+      id: 3,
       name: 'React Js',
       description:
         'I am fairly new to React and really did not like it at first. It has grown on me though and I will continue to use it going forward. I have built a ReactJS based resume-website template (link below in portfolio) which I used as a starting point for this personal site.',
       level: 88,
     },
     {
+      id: 4,
       name: 'Meteor JS',
       description:
         "I enjoy MeteorJS for it's ease of configuration and its ability to get a full stack prototype up and running quickly. I used MeteorJS in a team for a Startup Programming class in UVIC in conjunction with React to build the MVP for Smirkspace (below in portfolio)",
@@ -104,18 +108,21 @@ export const demoUserData: UserData = {
     },
 
     {
+      id: 5,
       name: 'Node JS',
       description:
         'Node JS is my server-side scripting language of choice. The bulk of my experience with it has been in conjunction with MeteorJS-based projects',
       level: 88,
     },
     {
+      id: 6,
       name: 'Bootstrap 4',
       description:
         'I use Bootstrap more often than not when designing the layout for my sites. It is the framework I am most familiar with and can therefore design more quickly than with others.',
       level: 88,
     },
     {
+      id: 7,
       name: 'MongoDB',
       description:
         'I have used many different database systems and am better educated and experienced with Relational Databases. However, for many applications, the ease of use of MongoDB better suits my needs and it is much more enjoyable to work with',
@@ -124,6 +131,7 @@ export const demoUserData: UserData = {
   ],
   softSkills: [
     {
+      id: 1,
       name: 'Heroku',
       description:
         'I use Heroku as my hosting platform for most of my projects because so far they are all unpaid and their free tier is convenient. I also appreciate its integration with Github for such simple deployment.',
@@ -131,10 +139,10 @@ export const demoUserData: UserData = {
     },
   ],
   interests: [
-    { name: 'Snowboarding', level: 100 },
-    { name: 'Driving', level: 98 },
-    { name: 'Football', level: 100 },
-    { name: 'React', level: 100 },
+    { id: 1, name: 'Snowboarding', level: 100 },
+    { id: 2, name: 'Driving', level: 98 },
+    { id: 3, name: 'Football', level: 100 },
+    { id: 4, name: 'React', level: 100 },
   ],
   portfolio: [
     {

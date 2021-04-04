@@ -14,7 +14,7 @@ import { NavLink } from 'react-router-dom';
 import { firebaseAuth } from '../../App/firebase';
 import { useDashboard } from '../../dashboardContext';
 import { BasicsSetup } from '../BasicsSetup';
-import SkillsSetup from '../Skills/SkillsSetup';
+import { AllSkillsSetup } from '../Skills/SkillsSetup';
 
 export const drawerWidth = 240;
 
@@ -94,7 +94,7 @@ export const dashboardPages: RouteElement[] = [
   { to: '/', text: 'Basic', icon: <Person />, component: <BasicsSetup /> },
   { to: '/experience', text: 'Experience', icon: <Work />, component: null },
   { to: '/education', text: 'Education', icon: <Book />, component: null },
-  { to: '/skills', text: 'Skills', icon: <Flag />, component: <SkillsSetup /> },
+  { to: '/skills', text: 'Skills', icon: <Flag />, component: <AllSkillsSetup /> },
   { to: '/portfolio', text: 'Portfolio', icon: <LayersIcon />, component: null },
   { to: '/testimonials', text: 'Testimontials', icon: <Comment />, component: null },
 ];

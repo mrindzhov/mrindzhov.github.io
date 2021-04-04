@@ -4,15 +4,9 @@ import TextField from '@material-ui/core/TextField';
 import { AddCircle } from '@material-ui/icons';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { useDashboard } from '../../dashboardContext';
-import { Skill, UserData } from '../../models';
+import { UserData } from '../../models';
 import { Papered } from '../Papered';
 import { SkillsSlider } from './SkillsSlider';
-
-const tempData: Skill[] = [
-  { name: 'React', level: 90 },
-  { name: 'C#', level: 80 },
-  { name: 'Agile', level: 100 },
-];
 
 const useStyles = makeStyles((theme) => ({
   skillRow: {
@@ -25,43 +19,84 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SkillsSetup() {
+export function AllSkillsSetup() {
+  return (
+    <Grid container spacing={3}>
+      <Grid item xs={12} md={6}>
+        <TechnicalSkillsSetup />
+      </Grid>
+
+      <Grid item xs={12} md={6}>
+        <SoftSkillsSetup />
+      </Grid>
+
+      <Grid item xs={12} md={6}>
+        <InterestsSetup />
+      </Grid>
+    </Grid>
+  );
+}
+export function TechnicalSkillsSetup() {
+  return <SkillsCategorySetup category={'techSkills'} title='Technical Skills' />;
+}
+export function SoftSkillsSetup() {
+  return <SkillsCategorySetup category={'softSkills'} title='Soft Skills' />;
+}
+
+export function InterestsSetup() {
+  return <SkillsCategorySetup category={'interests'} title='Interests' />;
+}
+
+type SkillsCategorySetupProps = {
+  title: string;
+  category: keyof Pick<UserData, 'softSkills' | 'techSkills' | 'interests'>;
+};
+
+function SkillsCategorySetup({ category, title }: SkillsCategorySetupProps) {
   const classes = useStyles();
 
   const { userData, setUserData } = useDashboard();
 
   const addNewValue = () => {
-    const newValue: Skill = { level: 20, name: '' };
-
-    setUserData((prevState) => ({
-      ...prevState,
-      techSkills: [...(prevState?.techSkills || []), newValue],
-    }));
-  };
-
-  const handleSkillChange = (name: string, e: string) => {
-    console.log(name);
-
-    //   TODO: Save skill change to values
-  };
-
-  const handleLevelChange = (name: string, value: number | number[]) => {
-    //   TODO: Save level change to values
-  };
-
-  const deleteValue = (skillName: string) => {
     setUserData((prevState) => {
-      const techSkills = prevState?.techSkills.filter((skill) => skill.name !== skillName) || [];
-      const newState: UserData = { ...prevState, techSkills };
-      return newState;
+      const newTechSkills = prevState?.[category] || [];
+
+      const newSkill = {
+        id: Math.max(0, ...newTechSkills.map((item) => item.id)) + 1,
+        level: 20,
+        name: '',
+      };
+
+      return { ...prevState, [category]: [...newTechSkills, newSkill] };
     });
   };
 
+  const handleSkillNameChange = (id: number, name: string) => {
+    setUserData((prevState) => ({
+      ...prevState,
+      [category]: prevState[category].map((s) => (s.id === id ? { ...s, name } : s)),
+    }));
+  };
+
+  const handleLevelChange = (id: number, level: number) => {
+    setUserData((prevState) => ({
+      ...prevState,
+      [category]: prevState[category].map((s) => (s.id === id ? { ...s, level } : s)),
+    }));
+  };
+
+  const deleteValue = (skillId: number) => {
+    setUserData((prevState) => ({
+      ...prevState,
+      [category]: prevState[category]?.filter((skill) => skill.id !== skillId) || [],
+    }));
+  };
+
   return (
-    <Papered title='Skills'>
+    <Papered title={title}>
       <div>
-        {userData?.techSkills?.map(({ name, level }, i) => (
-          <Box key={i}>
+        {userData?.[category]?.map(({ name, level, id }) => (
+          <Box key={id}>
             <Grid container spacing={1} alignItems='flex-end'>
               <Grid item xs={10}>
                 <div className={classes.skillRow}>
@@ -70,20 +105,19 @@ export default function SkillsSetup() {
                     autoFocus
                     margin='dense'
                     label='Value'
-                    variant='outlined'
-                    value={name || ''}
-                    onChange={(e) => handleSkillChange(name, e.target.value)}
+                    defaultValue={name}
+                    onChange={(e) => handleSkillNameChange(id, e.target.value)}
                   />
                   <SkillsSlider
-                    valueLabelDisplay='auto'
-                    aria-label='skills slider'
-                    defaultValue={level || 20}
-                    onChange={(_, value) => handleLevelChange(name, value)}
+                    valueLabelDisplay='on'
+                    defaultValue={level}
+                    step={10}
+                    onChange={(_, value) => handleLevelChange(id, Array.isArray(value) ? value[0] : value)}
                   />
                 </div>
               </Grid>
               <Grid item xs={2}>
-                <div className='font-icon-wrapper' onClick={() => deleteValue(name)}>
+                <div className='font-icon-wrapper' onClick={() => deleteValue(id)}>
                   <IconButton aria-label='delete'>
                     <DeleteIcon />
                   </IconButton>

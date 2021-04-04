@@ -27,13 +27,17 @@ export function DashboardProvider({ children }: any) {
 
   const saveChanges = useCallback(async () => {
     if (user) {
-      await firebaseDatabase.ref('users/' + user.uid).set({
+      const newUserData: UserData = {
         ...initialUserDataState,
         ...userData,
         social: { ...initialUserDataState.social, ...userData.social },
-      } as UserData);
+        techSkills: userData?.techSkills?.filter((s) => s.name) || [],
+      };
 
-      setInitialUserData(userData);
+      await firebaseDatabase.ref('users/' + user.uid).set(newUserData);
+
+      setInitialUserData(newUserData);
+      setUserData(newUserData);
     }
   }, [user, userData]);
 
