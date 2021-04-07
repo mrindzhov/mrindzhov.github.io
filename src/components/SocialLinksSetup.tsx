@@ -28,7 +28,7 @@ export function SocialLinksSetup() {
           label={provider}
           name={provider}
           fullWidth
-          defaultValue={userId}
+          value={userId || ''}
           onChange={setSocial}
           InputProps={{
             startAdornment: (

@@ -5,18 +5,18 @@ import { UserData } from './models';
 import { initialUserDataState } from './pages/mockData';
 
 type DrawerContextState = {
-  open: boolean;
+  drawerOpen: boolean;
   hasChanges: boolean;
   saveChanges: () => void;
   userData: UserData;
   setUserData: React.Dispatch<React.SetStateAction<UserData>>;
-  setDrawerState: React.Dispatch<React.SetStateAction<boolean>>;
+  setDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const DashboardContext = createContext<DrawerContextState>({} as DrawerContextState);
 
 export function DashboardProvider({ children }: any) {
-  const [drawerState, setDrawerState] = useState(true);
+  const [drawerOpen, setDrawerOpen] = useState(true);
   const [user] = useAuthState(firebaseAuth);
   const [initialUserData, setInitialUserData] = useState<UserData>(initialUserDataState);
   const [userData, setUserData] = useState<UserData>(initialUserDataState);
@@ -32,6 +32,8 @@ export function DashboardProvider({ children }: any) {
         ...userData,
         social: { ...initialUserDataState.social, ...userData.social },
         techSkills: userData?.techSkills?.filter((s) => s.name) || [],
+        softSkills: userData?.softSkills?.filter((s) => s.name) || [],
+        interests: userData?.interests?.filter((s) => s.name) || [],
       };
 
       await firebaseDatabase.ref('users/' + user.uid).set(newUserData);
@@ -53,17 +55,10 @@ export function DashboardProvider({ children }: any) {
     }
   }, [user]);
 
-  const value = useMemo(
-    () => ({
-      open: drawerState,
-      setDrawerState,
-      hasChanges,
-      saveChanges,
-      userData,
-      setUserData,
-    }),
-    [drawerState, hasChanges, saveChanges, userData]
-  );
+  const value = useMemo(() => {
+    return { drawerOpen, setDrawerOpen, hasChanges, saveChanges, userData, setUserData };
+  }, [drawerOpen, hasChanges, saveChanges, userData]);
+
   return <DashboardContext.Provider value={value}>{children}</DashboardContext.Provider>;
 }
 export function useDashboard() {

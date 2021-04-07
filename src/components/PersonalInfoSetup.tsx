@@ -2,6 +2,7 @@ import { FormControl, FormControlLabel, FormGroup, FormLabel, Switch, TextField 
 import Grid from '@material-ui/core/Grid';
 import React from 'react';
 import { useDashboard } from '../dashboardContext';
+import { toCapitalizedWord } from '../utils';
 import { Papered } from './Papered';
 
 export function PersonalInfoSetup() {
@@ -75,14 +76,4 @@ export function PersonalInfoSetup() {
       </Grid>
     </Papered>
   );
-}
-
-function toCapitalizedWord(name: string) {
-  var words = name.match(/[A-Za-z][a-z]*/g) || [];
-
-  return words.map(capitalize).join(' ');
-}
-
-function capitalize(word: string) {
-  return word.charAt(0).toUpperCase() + word.substring(1);
 }

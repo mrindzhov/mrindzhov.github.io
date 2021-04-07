@@ -1,10 +1,9 @@
 import { Box, Grid, makeStyles } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
-import { AddCircle } from '@material-ui/icons';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { useDashboard } from '../../dashboardContext';
-import { UserData } from '../../models';
+import { Skill, UserData } from '../../models';
 import { Papered } from '../Papered';
 import { SkillsSlider } from './SkillsSlider';
 
@@ -61,7 +60,7 @@ function SkillsCategorySetup({ category, title }: SkillsCategorySetupProps) {
     setUserData((prevState) => {
       const newTechSkills = prevState?.[category] || [];
 
-      const newSkill = {
+      const newSkill: Skill = {
         id: Math.max(0, ...newTechSkills.map((item) => item.id)) + 1,
         level: 20,
         name: '',
@@ -93,43 +92,38 @@ function SkillsCategorySetup({ category, title }: SkillsCategorySetupProps) {
   };
 
   return (
-    <Papered title={title}>
-      <div>
-        {userData?.[category]?.map(({ name, level, id }) => (
-          <Box key={id}>
-            <Grid container spacing={1} alignItems='flex-end'>
-              <Grid item xs={10}>
-                <div className={classes.skillRow}>
-                  <TextField
-                    className={classes.inputField}
-                    autoFocus
-                    margin='dense'
-                    label='Value'
-                    defaultValue={name}
-                    onChange={(e) => handleSkillNameChange(id, e.target.value)}
-                  />
-                  <SkillsSlider
-                    valueLabelDisplay='on'
-                    defaultValue={level}
-                    step={10}
-                    onChange={(_, value) => handleLevelChange(id, Array.isArray(value) ? value[0] : value)}
-                  />
-                </div>
-              </Grid>
-              <Grid item xs={2}>
-                <div className='font-icon-wrapper' onClick={() => deleteValue(id)}>
-                  <IconButton aria-label='delete'>
-                    <DeleteIcon />
-                  </IconButton>
-                </div>
-              </Grid>
+    <Papered title={title} onEntityAdded={addNewValue}>
+      {userData?.[category]?.map(({ name, level, id }) => (
+        <Box key={id}>
+          <Grid container spacing={1} alignItems='flex-end'>
+            <Grid item xs={10}>
+              <div className={classes.skillRow}>
+                <TextField
+                  className={classes.inputField}
+                  autoFocus
+                  margin='dense'
+                  label='Value'
+                  defaultValue={name}
+                  onChange={(e) => handleSkillNameChange(id, e.target.value)}
+                />
+                <SkillsSlider
+                  valueLabelDisplay='on'
+                  defaultValue={level}
+                  step={10}
+                  onChange={(_, value) => handleLevelChange(id, Array.isArray(value) ? value[0] : value)}
+                />
+              </div>
             </Grid>
-          </Box>
-        ))}
-        <IconButton onClick={addNewValue} aria-label='add-slider'>
-          <AddCircle />
-        </IconButton>
-      </div>
+            <Grid item xs={2}>
+              <div className='font-icon-wrapper' onClick={() => deleteValue(id)}>
+                <IconButton aria-label='delete'>
+                  <DeleteIcon />
+                </IconButton>
+              </div>
+            </Grid>
+          </Grid>
+        </Box>
+      ))}
     </Papered>
   );
 }

@@ -1,7 +1,7 @@
-import { makeStyles } from '@material-ui/core';
+import { Button, makeStyles, Typography } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
+import { AddCircle } from '@material-ui/icons';
 import { IProps } from '../models';
-import Title from './Dashboard/Title';
 
 export const useStyles = makeStyles((theme) => ({
   paper: {
@@ -10,17 +10,37 @@ export const useStyles = makeStyles((theme) => ({
     overflow: 'auto',
     flexDirection: 'column',
   },
+  addButton: {
+    width: 'max-content',
+    margin: theme.spacing(2),
+  },
 }));
 
 type PaperedProps = IProps & {
   title: string;
+  onEntityAdded?: React.MouseEventHandler<HTMLButtonElement>;
+  addEntityButtonText?: string;
 };
 
-export function Papered({ title, children }: PaperedProps) {
+export function Papered({ title, children, onEntityAdded, addEntityButtonText = 'Add new entry' }: PaperedProps) {
   const classes = useStyles();
   return (
     <Paper className={classes.paper}>
-      <Title>{title}</Title>
+      <Typography component='h2' variant='h4' color='primary' gutterBottom>
+        {title}
+      </Typography>
+      {onEntityAdded && (
+        <Button
+          variant='contained'
+          color='primary'
+          size='large'
+          className={classes.addButton}
+          startIcon={<AddCircle />}
+          onClick={onEntityAdded}>
+          {addEntityButtonText}
+        </Button>
+      )}
+
       {children}
     </Paper>
   );

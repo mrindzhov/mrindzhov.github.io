@@ -15,6 +15,7 @@ import { firebaseAuth } from '../../App/firebase';
 import { useDashboard } from '../../dashboardContext';
 import { BasicsSetup } from '../BasicsSetup';
 import { AllSkillsSetup } from '../Skills/SkillsSetup';
+import { PortfolioSetup } from '../PortfolioSetup';
 
 export const drawerWidth = 240;
 
@@ -57,17 +58,17 @@ const useStyles = makeStyles((theme) => ({
 
 export default function DashboardDrawer() {
   const classes = useStyles();
-  const { open, setDrawerState } = useDashboard();
+  const { drawerOpen, setDrawerOpen } = useDashboard();
 
   return (
     <Drawer
       variant='permanent'
       classes={{
-        paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+        paper: clsx(classes.drawerPaper, !drawerOpen && classes.drawerPaperClose),
       }}
-      open={open}>
+      open={drawerOpen}>
       <div className={classes.toolbarIcon}>
-        <IconButton onClick={() => setDrawerState(false)}>
+        <IconButton onClick={() => setDrawerOpen(false)}>
           <ChevronLeftIcon />
         </IconButton>
       </div>
@@ -95,7 +96,7 @@ export const dashboardPages: RouteElement[] = [
   { to: '/experience', text: 'Experience', icon: <Work />, component: null },
   { to: '/education', text: 'Education', icon: <Book />, component: null },
   { to: '/skills', text: 'Skills', icon: <Flag />, component: <AllSkillsSetup /> },
-  { to: '/portfolio', text: 'Portfolio', icon: <LayersIcon />, component: null },
+  { to: '/portfolio', text: 'Portfolio', icon: <LayersIcon />, component: <PortfolioSetup /> },
   { to: '/testimonials', text: 'Testimontials', icon: <Comment />, component: null },
 ];
 

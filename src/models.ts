@@ -35,11 +35,12 @@ export interface Skill {
   description?: string;
 }
 
-export interface Portfolio {
+export interface Project {
+  id: number;
   title: string;
   description: string;
-  image: string;
-  url: string;
+  imageUrl: string;
+  projectUrl: string;
 }
 
 export interface Testimonial {
@@ -57,12 +58,15 @@ export interface UserData {
   actionButtonText: string;
   countryOfResidence: string;
   resumeUrl: string;
+
   social: Social;
+
   experience: Experience[];
   education: Education[];
+  // TODO: Merge skill types & use skill category instead
   softSkills: Skill[];
   techSkills: Skill[];
   interests: Skill[];
-  portfolio: Portfolio[];
+  portfolio: Project[];
   testimonials: Testimonial[];
 }

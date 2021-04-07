@@ -1,7 +1,7 @@
 import { LinearProgress } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
 import React, { useState } from 'react';
-import { useParams } from 'react-router';
+import { Redirect, useParams } from 'react-router';
 import { firebaseDatabase } from '../App/firebase';
 import { Copyright } from '../components/Copyright';
 import AboutMe from '../components/My/AboutMe';
@@ -13,11 +13,11 @@ import MySkills from '../components/My/MySkills';
 import MyStats from '../components/My/MyStats';
 import MyWorkExperience from '../components/My/MyWorkExperience';
 import { UserData } from '../models';
-import { demoUserData } from './mockData';
 
 export default function PublicCVPage() {
   const { userName } = useParams<{ userName: string }>();
-  const [user, setUser] = useState<UserData>();
+  const [userData, setUser] = useState<{ user?: UserData; error: boolean }>({ user: undefined, error: false });
+  const { user, error } = userData;
 
   React.useEffect(() => {
     (() => {
@@ -26,12 +26,24 @@ export default function PublicCVPage() {
         .orderByChild('userName')
         .equalTo(userName)
         .once('value')
+
         .then((snapshot) => {
-          const userData = Object.values(snapshot.val())[0] as UserData;
-          setUser(userData);
+          const value = snapshot.val();
+          if (value) {
+            const l = Object.values(snapshot.val());
+            console.log(l);
+            const userData = l[0] as UserData;
+            setUser((p) => ({ ...p, user: userData }));
+          } else {
+            setUser((p) => ({ ...p, error: true }));
+          }
         });
     })();
   }, [userName]);
+
+  if (error) {
+    return <Redirect to='/' />;
+  }
 
   return !user ? (
     <LinearProgress />

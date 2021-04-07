@@ -37,15 +37,15 @@ const useStyles = makeStyles((theme: Theme) => ({
 export default function Header() {
   const classes = useStyles();
   const [user] = useAuthState(firebaseAuth);
-  const { open, setDrawerState } = useDashboard();
+  const { drawerOpen, setDrawerOpen } = useDashboard();
   return (
-    <AppBar position='absolute' className={clsx(classes.appBar, open && classes.appBarShift)}>
+    <AppBar position='absolute' className={clsx(classes.appBar, drawerOpen && classes.appBarShift)}>
       <Toolbar>
         <IconButton
           edge='start'
-          className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
+          className={clsx(classes.menuButton, drawerOpen && classes.menuButtonHidden)}
           color='inherit'
-          onClick={() => setDrawerState(true)}>
+          onClick={() => setDrawerOpen(true)}>
           <MenuIcon />
         </IconButton>
 
