@@ -1,13 +1,9 @@
 import { useTheme } from '@material-ui/core';
 import { PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, RadarChart, ResponsiveContainer } from 'recharts';
-import { IProps } from '../../models';
+import { IProps, Skill } from '../../models';
 
-export interface RadarData {
-  subject: string;
-  level: number;
-}
 export interface WebSkillsProps extends IProps {
-  data: RadarData[];
+  data: Skill[];
   stroke?: string;
   fill?: string;
 }
@@ -18,7 +14,7 @@ export function SkillsChart({ data, stroke, fill }: WebSkillsProps) {
     <ResponsiveContainer width='100%' height='100%'>
       <RadarChart cx='50%' cy='50%' outerRadius='80%' data={data}>
         <PolarGrid />
-        <PolarAngleAxis dataKey='subject' />
+        <PolarAngleAxis dataKey='name' />
         <PolarRadiusAxis />
         <Radar
           dataKey='level'

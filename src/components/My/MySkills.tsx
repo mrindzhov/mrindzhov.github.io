@@ -1,7 +1,8 @@
 import { Container, Grid, IconButton, makeStyles, Typography } from '@material-ui/core';
 import { CloudDownload } from '@material-ui/icons';
 import { UserData } from '../../models';
-import { RadarData, SkillsChart } from '../Skills/SkillsChart';
+import Title from '../Dashboard/Title';
+import { SkillsChart } from '../Skills/SkillsChart';
 
 const useStyles = makeStyles((theme) => ({
   flex: {
@@ -17,28 +18,28 @@ const useStyles = makeStyles((theme) => ({
 export default function MySkills(user: UserData) {
   const classes = useStyles();
 
-  const data: RadarData[] = [
-    { subject: 'Math', level: 120 },
-    { subject: 'Chinese', level: 98 },
-    { subject: 'English', level: 86 },
-    { subject: 'Geography', level: 99 },
-    { subject: 'Physics', level: 85 },
-    { subject: 'History', level: 65 },
-  ];
-
   return (
     <Container className={classes.flex} maxWidth='lg'>
       <Typography variant='h3'>Skills.</Typography>
       <Grid container justify='center'>
-        <Grid item md={6} className={classes.skills}>
-          <SkillsChart data={data} />
-        </Grid>
-        <Grid item md={6} className={classes.skills}>
-          <SkillsChart data={data} />
-        </Grid>
-        <Grid item md={6} className={classes.skills}>
-          <SkillsChart data={data} />
-        </Grid>
+        {user.techSkills.length > 2 && (
+          <Grid item md={6} className={classes.skills}>
+            <Title>Tech skills</Title>
+            <SkillsChart data={user.techSkills} />
+          </Grid>
+        )}
+        {user.softSkills.length > 2 && (
+          <Grid item md={6} className={classes.skills}>
+            <Title>Soft skills</Title>
+            <SkillsChart data={user.softSkills} />
+          </Grid>
+        )}
+        {user.interests.length > 2 && (
+          <Grid item md={6} className={classes.skills}>
+            <Title>Interests</Title>
+            <SkillsChart data={user.interests} />
+          </Grid>
+        )}
       </Grid>
 
       <Typography variant='h5'>Download my Resume</Typography>
