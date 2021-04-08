@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import React, { ReactNode } from 'react';
-import { IProps } from '../models';
+import { IProps } from 'models/user.models';
 import { Copyright } from './Copyright';
 
 const useStyles = makeStyles((theme) => ({

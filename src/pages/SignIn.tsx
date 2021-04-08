@@ -7,12 +7,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { Alert } from '@material-ui/lab';
+import UserEntrance from 'components/UserEntrance';
 import { useState } from 'react';
 import { useAuthState, useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { Redirect } from 'react-router';
 import { NavLink } from 'react-router-dom';
-import { firebaseAuth } from '../App/firebase';
-import UserEntrance from '../components/UserEntrance';
+import { firebaseAuth } from 'utils/firebase';
 
 const useStyles = makeStyles((theme) => ({
   form: {

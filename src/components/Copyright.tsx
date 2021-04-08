@@ -2,7 +2,7 @@ import { Container, makeStyles } from '@material-ui/core';
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { firebaseAuth } from '../App/firebase';
+import { firebaseAuth } from 'utils/firebase';
 
 const useStyles = makeStyles((theme) => ({
   container: {

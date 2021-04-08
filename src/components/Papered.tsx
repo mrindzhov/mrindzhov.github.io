@@ -1,7 +1,7 @@
 import { Button, makeStyles, Typography } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 import { AddCircle } from '@material-ui/icons';
-import { IProps } from '../models';
+import { IProps } from 'models/user.models';
 
 export const useStyles = makeStyles((theme) => ({
   paper: {

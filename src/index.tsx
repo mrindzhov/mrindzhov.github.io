@@ -1,7 +1,6 @@
 import ReactDOM from 'react-dom';
-import App from './App/App';
-import './index.css';
-import reportWebVitals from './reportWebVitals';
+import App from './App';
+import reportWebVitals from './utils/reportWebVitals';
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
