@@ -24,14 +24,16 @@ export default function AboutMe(user: UserData) {
         <Grid item md={4} sm={12} className={classes.flex}>
           <Avatar src='https://source.unsplash.com/random' className={classes.large} />
           <div>
-            {Object.entries(user.social).map(([provider, id], i) => {
-              const linkInfo = socialLinksInfo.find((l) => l.provider === provider);
-              return (
-                <IconButton size='medium' key={i} href={`${linkInfo?.baseUrl}/${id}`}>
-                  {linkInfo?.component}
-                </IconButton>
-              );
-            })}
+            {Object.entries(user.social)
+              .filter(([, id]) => id?.length)
+              .map(([provider, id], i) => {
+                const linkInfo = socialLinksInfo.find((l) => l.provider === provider);
+                return (
+                  <IconButton size='medium' key={i} href={`${linkInfo?.baseUrl}/${id}`}>
+                    {linkInfo?.component}
+                  </IconButton>
+                );
+              })}
           </div>
         </Grid>
         <Grid item md={8}>

@@ -1,8 +1,7 @@
 import { Fab } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
-import { Save } from '@material-ui/icons';
-
+import { DeleteSweep, Save } from '@material-ui/icons';
 import { Route } from 'react-router-dom';
 import DashboardDrawer, { dashboardPages, drawerWidth } from '../components/Dashboard/DashboardDrawer';
 import Header from '../components/Header';
@@ -51,7 +50,7 @@ export default function DashboardContainer() {
 
 function Dashboard() {
   const classes = useStyles();
-  const { hasChanges, saveChanges } = useDashboard();
+  const { hasChanges, saveChanges, discardChanges } = useDashboard();
 
   return (
     <div className={classes.root}>
@@ -72,10 +71,14 @@ function Dashboard() {
         </main>
       </Container>
       {hasChanges && (
-        <div onClick={() => saveChanges()} role='presentation' className={classes.rootFab}>
-          <Fab variant='extended' color='primary' aria-label='add'>
+        <div role='presentation' className={classes.rootFab}>
+          <Fab variant='extended' color='primary' onClick={saveChanges}>
             <Save />
             Save changes
+          </Fab>
+          <Fab variant='extended' color='secondary' onClick={discardChanges}>
+            <DeleteSweep />
+            Discard changes
           </Fab>
         </div>
       )}

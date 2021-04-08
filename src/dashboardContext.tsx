@@ -8,6 +8,7 @@ type DrawerContextState = {
   drawerOpen: boolean;
   hasChanges: boolean;
   saveChanges: () => void;
+  discardChanges: () => void;
   userData: UserData;
   setUserData: React.Dispatch<React.SetStateAction<UserData>>;
   setDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -43,6 +44,8 @@ export function DashboardProvider({ children }: any) {
     }
   }, [user, userData]);
 
+  const discardChanges = useCallback(async () => setUserData(initialUserData), [initialUserData]);
+
   useEffect(() => {
     if (user) {
       firebaseDatabase
@@ -56,8 +59,8 @@ export function DashboardProvider({ children }: any) {
   }, [user]);
 
   const value = useMemo(() => {
-    return { drawerOpen, setDrawerOpen, hasChanges, saveChanges, userData, setUserData };
-  }, [drawerOpen, hasChanges, saveChanges, userData]);
+    return { drawerOpen, setDrawerOpen, hasChanges, saveChanges, discardChanges, userData, setUserData };
+  }, [discardChanges, drawerOpen, hasChanges, saveChanges, userData]);
 
   return <DashboardContext.Provider value={value}>{children}</DashboardContext.Provider>;
 }

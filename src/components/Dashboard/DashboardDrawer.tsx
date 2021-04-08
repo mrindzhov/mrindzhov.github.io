@@ -94,9 +94,9 @@ type RouteElement = {
 export const dashboardPages: RouteElement[] = [
   { to: '/', text: 'Basic', icon: <Person />, component: <BasicsSetup /> },
   { to: '/experience', text: 'Experience', icon: <Work />, component: null },
-  { to: '/education', text: 'Education', icon: <Book />, component: null },
   { to: '/skills', text: 'Skills', icon: <Flag />, component: <AllSkillsSetup /> },
   { to: '/portfolio', text: 'Portfolio', icon: <LayersIcon />, component: <PortfolioSetup /> },
+  { to: '/education', text: 'Education', icon: <Book />, component: null },
   { to: '/testimonials', text: 'Testimontials', icon: <Comment />, component: null },
 ];
 

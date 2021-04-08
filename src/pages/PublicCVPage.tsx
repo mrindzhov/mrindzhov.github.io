@@ -26,13 +26,11 @@ export default function PublicCVPage() {
         .orderByChild('userName')
         .equalTo(userName)
         .once('value')
-
         .then((snapshot) => {
           const value = snapshot.val();
           if (value) {
-            const l = Object.values(snapshot.val());
-            console.log(l);
-            const userData = l[0] as UserData;
+            const userDataArray = Object.values(snapshot.val());
+            const userData = userDataArray[0] as UserData;
             setUser((p) => ({ ...p, user: userData }));
           } else {
             setUser((p) => ({ ...p, error: true }));
