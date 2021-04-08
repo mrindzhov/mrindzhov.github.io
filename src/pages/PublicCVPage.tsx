@@ -1,6 +1,6 @@
 import { LinearProgress } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Redirect, useParams } from 'react-router';
 import { firebaseDatabase } from '../App/firebase';
 import { Copyright } from '../components/Copyright';
@@ -14,35 +14,36 @@ import MyStats from '../components/My/MyStats';
 import MyWorkExperience from '../components/My/MyWorkExperience';
 import { UserData } from '../models';
 
+export type PublicUserData = UserData & { _id: string };
+export type PublicUserDataState = { hasError: false; user?: PublicUserData } | { hasError: true; errorMessage: string };
+
+const defaultUserData: PublicUserDataState = { user: undefined, hasError: false };
+
 export default function PublicCVPage() {
   const { userName } = useParams<{ userName: string }>();
-  const [userData, setUser] = useState<{ user?: UserData; error: boolean }>({ user: undefined, error: false });
-  const { user, error } = userData;
+  const [userData, setUser] = useState<PublicUserDataState>(defaultUserData);
 
-  React.useEffect(() => {
-    (() => {
-      firebaseDatabase
-        .ref('/users/')
-        .orderByChild('userName')
-        .equalTo(userName)
-        .once('value')
-        .then((snapshot) => {
-          const value = snapshot.val();
-          if (value) {
-            const userDataArray = Object.values(snapshot.val());
-            const userData = userDataArray[0] as UserData;
-            setUser((p) => ({ ...p, user: userData }));
-          } else {
-            setUser((p) => ({ ...p, error: true }));
-          }
-        });
-    })();
+  useEffect(() => {
+    firebaseDatabase
+      .ref('/users/')
+      .orderByChild('userName')
+      .equalTo(userName)
+      .once('value')
+      .then((snapshot) => {
+        const value = snapshot.val();
+        if (value) {
+          const [_id, userData] = Object.entries(value)[0] as [string, UserData];
+          setUser({ hasError: false, user: { ...userData, _id } });
+        } else {
+          setUser({ hasError: true, errorMessage: 'Not found' });
+        }
+      });
   }, [userName]);
 
-  if (error) {
+  if (userData.hasError) {
     return <Redirect to='/' />;
   }
-
+  const { user } = userData;
   return !user ? (
     <LinearProgress />
   ) : (

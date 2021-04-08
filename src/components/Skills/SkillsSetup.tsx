@@ -1,4 +1,4 @@
-import { Box, Grid, makeStyles } from '@material-ui/core';
+import { Box, Grid, makeStyles, Typography } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -93,6 +93,9 @@ function SkillsCategorySetup({ category, title }: SkillsCategorySetupProps) {
 
   return (
     <Papered title={title} onEntityAdded={addNewValue}>
+      {(userData?.[category]?.length || 0) < 3 && (
+        <Typography> List atleast 3 skills in order to have them shown on your public pag</Typography>
+      )}
       {userData?.[category]?.map(({ name, level, id }) => (
         <Box key={id}>
           <Grid container spacing={1} alignItems='flex-end'>

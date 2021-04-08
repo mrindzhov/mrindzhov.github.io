@@ -7,7 +7,9 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { Contacts } from '@material-ui/icons';
 import React, { useState } from 'react';
-import { UserData } from '../../models';
+import { firebaseDatabase } from '../../App/firebase';
+import { UserMessage } from '../../models';
+import { PublicUserData } from '../../pages/PublicCVPage';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -29,15 +31,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ConnectWithMeForm(user: UserData) {
+export default function ConnectWithMeForm(user: PublicUserData) {
   const classes = useStyles();
-  const [form, setForm] = useState({ name: '', emailOrPhone: '', message: '' });
+  const [form, setForm] = useState<UserMessage>({ name: '', emailOrPhone: '', message: '' });
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const submitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(form);
-    setIsSubmitted(true);
+    firebaseDatabase
+      .ref(`/messages/${user._id}`)
+      .push(form)
+      .then(() => setIsSubmitted(true))
+      .catch(console.error);
   };
 
   const setFormField = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>

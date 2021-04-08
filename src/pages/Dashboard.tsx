@@ -2,7 +2,7 @@ import { Fab } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import { DeleteSweep, Save } from '@material-ui/icons';
-import { Route } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import DashboardDrawer, { dashboardPages, drawerWidth } from '../components/Dashboard/DashboardDrawer';
 import Header from '../components/Header';
 import { Papered } from '../components/Papered';
@@ -60,14 +60,17 @@ function Dashboard() {
       <Container maxWidth='xl' className={classes.container}>
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
-          {dashboardPages.map(({ to, component, text }) => (
-            <Route
-              exact
-              key={to}
-              path={'/dashboard' + to}
-              render={() => component ?? <Papered title={`${text} page to be implemented`} />}
-            />
-          ))}
+          <Switch>
+            {dashboardPages.map(({ to, component, text }) => (
+              <Route
+                exact
+                key={to}
+                path={'/dashboard' + to}
+                render={() => component ?? <Papered title={`${text} page to be implemented`} />}
+              />
+            ))}
+            <Route render={() => <Redirect to={'/dashboard'} />} />
+          </Switch>
         </main>
       </Container>
       {hasChanges && (

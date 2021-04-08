@@ -29,6 +29,8 @@ export function Papered({ title, children, onEntityAdded, addEntityButtonText = 
       <Typography component='h2' variant='h4' color='primary' gutterBottom>
         {title}
       </Typography>
+
+      {children}
       {onEntityAdded && (
         <Button
           variant='contained'
@@ -40,8 +42,6 @@ export function Papered({ title, children, onEntityAdded, addEntityButtonText = 
           {addEntityButtonText}
         </Button>
       )}
-
-      {children}
     </Paper>
   );
 }

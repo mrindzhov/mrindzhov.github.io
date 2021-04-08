@@ -70,3 +70,10 @@ export interface UserData {
   portfolio: Project[];
   testimonials: Testimonial[];
 }
+
+export type UserMessage = {
+  name: string;
+  emailOrPhone: string;
+  message: string;
+  isRead?: boolean;
+};

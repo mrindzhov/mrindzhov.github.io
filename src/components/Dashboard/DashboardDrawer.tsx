@@ -6,16 +6,18 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import { Book, Comment, ExitToAppOutlined, Flag, Person, Visibility, Work } from '@material-ui/icons';
+import { Book, Comment, ExitToAppOutlined, Flag, Inbox, Person, Visibility, Work } from '@material-ui/icons';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import LayersIcon from '@material-ui/icons/Layers';
 import clsx from 'clsx';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { firebaseAuth } from '../../App/firebase';
 import { useDashboard } from '../../dashboardContext';
 import { BasicsSetup } from '../BasicsSetup';
-import { AllSkillsSetup } from '../Skills/SkillsSetup';
 import { PortfolioSetup } from '../PortfolioSetup';
+import { AllSkillsSetup } from '../Skills/SkillsSetup';
+import { UserInbox } from '../UserInbox';
 
 export const drawerWidth = 240;
 
@@ -74,11 +76,11 @@ export default function DashboardDrawer() {
       </div>
       <Divider />
       <List>
-        <DashboardListItems />
+        <NavigationItems />
       </List>
       <Divider />
       <List>
-        <SecondaryListItems />
+        <ActionItems />
       </List>
     </Drawer>
   );
@@ -89,6 +91,7 @@ type RouteElement = {
   text: string;
   icon: JSX.Element;
   component: JSX.Element | null;
+  visibleIndex?: number;
 };
 
 export const dashboardPages: RouteElement[] = [
@@ -98,24 +101,30 @@ export const dashboardPages: RouteElement[] = [
   { to: '/portfolio', text: 'Portfolio', icon: <LayersIcon />, component: <PortfolioSetup /> },
   { to: '/education', text: 'Education', icon: <Book />, component: null },
   { to: '/testimonials', text: 'Testimontials', icon: <Comment />, component: null },
+  { to: '/inbox', text: 'Inbox', icon: <Inbox />, component: <UserInbox />, visibleIndex: -1 },
 ];
 
-export const DashboardListItems = () => {
+export const NavigationItems = () => {
   const classes = useStyles();
 
   return (
     <div>
-      {dashboardPages.map(({ to, text, icon, component }) => (
-        <ListItem button component={NavLink} to={'/dashboard' + to} key={to}>
-          <ListItemIcon className={component ? classes.primaryIcon : classes.icon}>{icon}</ListItemIcon>
-          <ListItemText primary={text} />
-        </ListItem>
-      ))}
+      {dashboardPages
+        .sort((a, b) => (a.visibleIndex || 0) - (b.visibleIndex || 0))
+        .map(({ to, text, icon, component }) => (
+          <React.Fragment key={to}>
+            <ListItem button component={NavLink} to={'/dashboard' + to}>
+              <ListItemIcon className={component ? classes.primaryIcon : classes.icon}>{icon}</ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+            {to === '/inbox' && <Divider light />}
+          </React.Fragment>
+        ))}
     </div>
   );
 };
 
-export const SecondaryListItems = () => {
+export const ActionItems = () => {
   const { userData } = useDashboard();
   return (
     <div>
