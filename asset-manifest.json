@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/mrindzhov.github.io/static/css/main.3fff83c3.chunk.css",
-    "main.js": "/mrindzhov.github.io/static/js/main.2faa97cc.chunk.js",
-    "main.js.map": "/mrindzhov.github.io/static/js/main.2faa97cc.chunk.js.map",
+    "main.js": "/mrindzhov.github.io/static/js/main.aeb798d4.chunk.js",
+    "main.js.map": "/mrindzhov.github.io/static/js/main.aeb798d4.chunk.js.map",
     "runtime-main.js": "/mrindzhov.github.io/static/js/runtime-main.8eaba39b.js",
     "runtime-main.js.map": "/mrindzhov.github.io/static/js/runtime-main.8eaba39b.js.map",
-    "static/js/2.75db2932.chunk.js": "/mrindzhov.github.io/static/js/2.75db2932.chunk.js",
-    "static/js/2.75db2932.chunk.js.map": "/mrindzhov.github.io/static/js/2.75db2932.chunk.js.map",
+    "static/js/2.185e6e6c.chunk.js": "/mrindzhov.github.io/static/js/2.185e6e6c.chunk.js",
+    "static/js/2.185e6e6c.chunk.js.map": "/mrindzhov.github.io/static/js/2.185e6e6c.chunk.js.map",
     "static/js/3.7b973482.chunk.js": "/mrindzhov.github.io/static/js/3.7b973482.chunk.js",
     "static/js/3.7b973482.chunk.js.map": "/mrindzhov.github.io/static/js/3.7b973482.chunk.js.map",
     "index.html": "/mrindzhov.github.io/index.html",
     "static/css/main.3fff83c3.chunk.css.map": "/mrindzhov.github.io/static/css/main.3fff83c3.chunk.css.map",
-    "static/js/2.75db2932.chunk.js.LICENSE.txt": "/mrindzhov.github.io/static/js/2.75db2932.chunk.js.LICENSE.txt"
+    "static/js/2.185e6e6c.chunk.js.LICENSE.txt": "/mrindzhov.github.io/static/js/2.185e6e6c.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.8eaba39b.js",
-    "static/js/2.75db2932.chunk.js",
+    "static/js/2.185e6e6c.chunk.js",
     "static/css/main.3fff83c3.chunk.css",
-    "static/js/main.2faa97cc.chunk.js"
+    "static/js/main.aeb798d4.chunk.js"
   ]
 }
