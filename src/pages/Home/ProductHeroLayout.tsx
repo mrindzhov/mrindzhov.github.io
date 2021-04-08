@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
 interface ProductHeroLayoutProps extends IProps {
   backgroundClassName: string;
 }
-export default function ProductHeroLayout({ children, backgroundClassName }: ProductHeroLayoutProps) {
+export function ProductHeroLayout({ children, backgroundClassName }: ProductHeroLayoutProps) {
   const classes = useStyles();
 
   return (

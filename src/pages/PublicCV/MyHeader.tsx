@@ -4,7 +4,7 @@ export const useStyles = makeStyles((theme) => ({
   appbar: { alignItems: 'center' },
 }));
 
-export default function MyHeader() {
+export function MyHeader() {
   const classes = useStyles();
   return (
     <AppBar position='static' className={classes.appbar}>

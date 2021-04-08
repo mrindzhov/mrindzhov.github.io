@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.secondary.main,
   },
 }));
-export default function HomePageHeader() {
+export function HomePageHeader() {
   const classes = useStyles();
 
   return (

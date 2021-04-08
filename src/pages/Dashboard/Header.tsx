@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default function Header() {
+export function Header() {
   const classes = useStyles();
   const [user] = useAuthState(firebaseAuth);
   const { drawerOpen, setDrawerOpen } = useDashboard();

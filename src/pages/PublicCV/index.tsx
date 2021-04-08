@@ -1,2 +1,1 @@
-import PublicCV from './PublicCV';
-export default PublicCV;
+export * from './PublicCV';

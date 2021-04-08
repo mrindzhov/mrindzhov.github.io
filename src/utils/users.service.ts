@@ -2,7 +2,7 @@ import { firebaseDatabase } from './firebase';
 
 const db = firebaseDatabase.ref('users/');
 
-const service = {
+export const service = {
   getAll: () => db,
   getByUserName: (/**userName:string */) => db.orderByChild('Identifier').equalTo('mrindzhov@gmail.com'),
   create: (data: any) => db.push(data),
@@ -10,5 +10,3 @@ const service = {
   remove: (key: string) => db.child(key).remove(),
   removeAll: () => db.remove(),
 };
-
-export default service;

@@ -1,5 +1,4 @@
 import { Button, Container, Grid, makeStyles, Typography } from '@material-ui/core';
-import React from 'react';
 import { UserData } from 'models/user.models';
 
 const useStyles = makeStyles((theme) => ({
@@ -13,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MyIntro(user: UserData) {
+export function MyIntro(user: UserData) {
   const classes = useStyles();
 
   return (

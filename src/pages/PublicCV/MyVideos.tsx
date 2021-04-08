@@ -1,4 +1,4 @@
-export default function MyVideos() {
+export function MyVideos() {
   return (
     <section className='projects' id='projects'>
       <div className='row alignCenter'>

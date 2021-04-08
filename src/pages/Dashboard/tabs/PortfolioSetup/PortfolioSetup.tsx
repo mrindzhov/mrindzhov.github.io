@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PortfolioSetup() {
+export function PortfolioSetup() {
   const classes = useStyles();
 
   const { dialog, openProjectDialog } = usePortfolioDialog();

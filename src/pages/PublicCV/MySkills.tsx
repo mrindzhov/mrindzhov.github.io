@@ -2,7 +2,7 @@ import { Container, Grid, IconButton, makeStyles, Typography } from '@material-u
 import { CloudDownload } from '@material-ui/icons';
 import { useMemo } from 'react';
 import { SkillsChart } from 'components/SkillsChart';
-import Title from 'components/Title';
+import { Title } from 'components/Title';
 import { UserData } from 'models/user.models';
 
 const useStyles = makeStyles((theme) => ({
@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   downloadButton: { width: 'max-content' },
 }));
 
-export default function MySkills(user: UserData) {
+export function MySkills(user: UserData) {
   const classes = useStyles();
 
   const skillsMap = useMemo(() => {

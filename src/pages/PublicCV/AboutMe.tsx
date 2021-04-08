@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AboutMe(user: UserData) {
+export function AboutMe(user: UserData) {
   const classes = useStyles();
 
   return (

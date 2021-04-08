@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { Alert } from '@material-ui/lab';
-import UserEntrance from 'components/UserEntrance';
+import { UserEntrance } from 'components/UserEntrance';
 import { UserData } from 'models/user.models';
 import React, { useEffect, useState } from 'react';
 import { useAuthState, useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignUp() {
+export function SignUp() {
   const classes = useStyles();
 
   const [signUpForm, setSignUpForm] = useState({ firstName: '', lastName: '', email: '', password: '' });

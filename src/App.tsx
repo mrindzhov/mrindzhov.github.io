@@ -2,7 +2,7 @@ import { Providers } from 'providers/Providers';
 import { Routes } from 'providers/Routes';
 import { BrowserRouter } from 'react-router-dom';
 
-function App() {
+export function App() {
   return (
     <BrowserRouter>
       <Providers>
@@ -11,5 +11,3 @@ function App() {
     </BrowserRouter>
   );
 }
-
-export default App;

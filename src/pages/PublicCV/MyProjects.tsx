@@ -1,15 +1,14 @@
 import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
   Container,
   Grid,
-  Card,
-  CardMedia,
-  CardContent,
-  Typography,
-  CardActions,
-  Button,
   makeStyles,
+  Typography,
 } from '@material-ui/core';
-import React from 'react';
 import { UserData } from 'models/user.models';
 
 const useStyles = makeStyles((theme) => ({
@@ -36,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(6),
   },
 }));
-export default function MyProjects(user: UserData) {
+export function MyProjects(user: UserData) {
   const classes = useStyles();
 
   return (

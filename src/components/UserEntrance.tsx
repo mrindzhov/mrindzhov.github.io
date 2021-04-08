@@ -40,7 +40,7 @@ interface UserEntranceProps extends IProps {
   title: string;
   icon?: ReactNode;
 }
-export default function UserEntrance({ children, title, icon }: UserEntranceProps) {
+export function UserEntrance({ children, title, icon }: UserEntranceProps) {
   const classes = useStyles();
 
   return (

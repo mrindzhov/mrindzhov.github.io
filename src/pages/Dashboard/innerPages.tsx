@@ -1,8 +1,7 @@
 import { Book, Comment, Flag, Inbox, Person, Work } from '@material-ui/icons';
 import LayersIcon from '@material-ui/icons/Layers';
-import React from 'react';
 import { BasicsSetup } from './tabs/BasicsSetup';
-import PortfolioSetup from './tabs/PortfolioSetup';
+import { PortfolioSetup } from './tabs/PortfolioSetup';
 import { AllSkillsSetup } from './tabs/SkillsSetup';
 import { UserInbox } from './tabs/UserInbox';
 

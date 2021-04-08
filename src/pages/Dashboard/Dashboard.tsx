@@ -3,9 +3,9 @@ import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import { DeleteSweep, Save } from '@material-ui/icons';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import DashboardDrawer, { drawerWidth } from './Drawer';
-import { dashboardPages } from "./innerPages";
-import Header from './Header';
+import { DashboardDrawer, drawerWidth } from './Drawer';
+import { dashboardPages } from './innerPages';
+import { Header } from './Header';
 import { Papered } from 'components/Papered';
 import { DashboardProvider, useDashboard } from './useDashboard';
 
@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function DashboardContainer() {
+export function DashboardContainer() {
   return (
     <DashboardProvider>
       <Dashboard />

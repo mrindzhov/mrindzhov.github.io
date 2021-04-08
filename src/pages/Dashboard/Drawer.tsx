@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function DashboardDrawer() {
+export function DashboardDrawer() {
   const classes = useStyles();
   const { drawerOpen, setDrawerOpen } = useDashboard();
 

@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { Alert } from '@material-ui/lab';
-import UserEntrance from 'components/UserEntrance';
+import { UserEntrance } from 'components/UserEntrance';
 import { useState } from 'react';
 import { useAuthState, useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { Redirect } from 'react-router';
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn() {
+export function SignIn() {
   const classes = useStyles();
   const [signInWithEmailAndPassword, , , error] = useSignInWithEmailAndPassword(firebaseAuth);
   const [signInForm, setSignInForm] = useState({ email: '', password: '' });

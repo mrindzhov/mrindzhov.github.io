@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ConnectWithMeForm(user: PublicUserData) {
+export function ConnectWithMeForm(user: PublicUserData) {
   const classes = useStyles();
   const [form, setForm] = useState<UserMessage>({ name: '', emailOrPhone: '', message: '' });
   const [isSubmitted, setIsSubmitted] = useState(false);

@@ -1,7 +1,7 @@
 import { Button, makeStyles, Typography } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
-import HomePageHeader from './HomePageHeader';
-import ProductHeroLayout from './ProductHeroLayout';
+import { HomePageHeader } from './HomePageHeader';
+import { ProductHeroLayout } from './ProductHeroLayout';
 
 const backgroundImage = 'https://source.unsplash.com/random?auto=format&fit=crop&w=1400&q=80';
 
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function HomePage() {
+export function HomePage() {
   const classes = useStyles();
 
   return (

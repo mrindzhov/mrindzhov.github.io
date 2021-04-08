@@ -1,22 +1,22 @@
 import { LinearProgress } from '@material-ui/core';
+import { DashboardContainer } from 'pages/Dashboard';
+import { HomePage } from 'pages/Home';
+import { PublicCV } from 'pages/PublicCV';
+import { SignIn } from 'pages/SignIn';
+import { SignUp } from 'pages/SignUp';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Redirect, Route, RouteProps, Switch } from 'react-router-dom';
 import { firebaseAuth } from 'utils/firebase';
-import Dashboard from 'pages/Dashboard';
-import HomePage from 'pages/Home';
-import PublicCVPage from 'pages/PublicCV';
-import SignIn from 'pages/SignIn';
-import SignUp from 'pages/SignUp';
 
 export const Routes = () => (
   <Switch>
     <RouteWrapper exact path='/' render={() => <HomePage />} publicOnly />
-    <RouteWrapper path='/dashboard' render={() => <Dashboard />} privateOnly />
+    <RouteWrapper path='/dashboard' render={() => <DashboardContainer />} privateOnly />
 
     <RouteWrapper exact path='/sign/in' render={() => <SignIn />} />
     <RouteWrapper exact path='/sign/up' render={() => <SignUp />} />
 
-    <RouteWrapper exact path='/:userName' render={() => <PublicCVPage />} />
+    <RouteWrapper exact path='/:userName' render={() => <PublicCV />} />
   </Switch>
 );
 

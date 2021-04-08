@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MyStats() {
+export function MyStats() {
   const classes = useStyles();
 
   return (

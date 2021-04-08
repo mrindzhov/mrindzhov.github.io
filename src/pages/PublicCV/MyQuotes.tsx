@@ -1,4 +1,4 @@
-export default function MyQuotes() {
+export function MyQuotes() {
   return (
     <section className='quotes' id='quotes'>
       <div className='row alignCenter'>

@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MyWorkExperience({ experience }: { experience: Experience[] }) {
+export function MyWorkExperience({ experience }: { experience: Experience[] }) {
   const classes = useStyles();
 
   return (
