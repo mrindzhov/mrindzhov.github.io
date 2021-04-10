@@ -30,7 +30,7 @@ export function MySkills(user: UserData) {
     ];
   }, [user.interests, user.softSkills, user.techSkills]);
 
-  return (
+  return skillsMap.some((s) => s.data?.length) ? (
     <Container className={classes.flex} maxWidth='lg'>
       <Typography variant='h3'>Skills.</Typography>
       <Grid container justify='center'>
@@ -52,5 +52,5 @@ export function MySkills(user: UserData) {
         </IconButton>
       </Grid>
     </Container>
-  );
+  ) : null;
 }

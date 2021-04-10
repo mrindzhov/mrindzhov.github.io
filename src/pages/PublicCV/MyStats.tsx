@@ -7,11 +7,12 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
   },
 }));
+const isImplemented = false;
 
 export function MyStats() {
   const classes = useStyles();
 
-  return (
+  return isImplemented ? (
     <Container className={classes.flex}>
       <div className='numbers'>
         <h4 id='coded-lines'>160 000</h4>
@@ -30,5 +31,5 @@ export function MyStats() {
         <span>projects completed</span>
       </div>
     </Container>
-  );
+  ) : null;
 }

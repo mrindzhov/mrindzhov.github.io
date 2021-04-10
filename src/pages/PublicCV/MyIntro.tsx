@@ -33,12 +33,12 @@ export function MyIntro(user: UserData) {
           <Grid container spacing={2} justify='center'>
             <Grid item>
               <Button variant='contained' href='#chat'>
-                {user.actionButtonText ?? 'Chat with me'}{' '}
+                {user.actionButtonText ?? 'Chat with me'}
               </Button>
             </Grid>
-            <Grid item>
+            {/* <Grid item>
               <Button variant='outlined'>Secondary action</Button>
-            </Grid>
+            </Grid> */}
           </Grid>
         </div>
       </Container>

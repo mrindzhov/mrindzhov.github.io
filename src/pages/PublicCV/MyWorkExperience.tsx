@@ -8,7 +8,7 @@ export const MyWorkExperience = ({ experiences }: { experiences: Experience[] })
     {experiences?.length ? (
       <ExperienceTimeline experiences={experiences} />
     ) : (
-      <Typography> I am still a fresh graduate looking to find my first job in the industry </Typography>
+      <Typography align='center'> I am still a fresh graduate looking to find my first job in the industry </Typography>
     )}
   </Container>
 );
