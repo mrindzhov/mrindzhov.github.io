@@ -1,9 +1,10 @@
-import { Button, Card, CardContent, Grid, makeStyles } from '@material-ui/core';
-import { AddCircle } from '@material-ui/icons';
+import { Grid, makeStyles } from '@material-ui/core';
 import { Papered } from 'components/Papered';
 import { useDashboard } from '../../useDashboard';
+import { AddNewProjectCard } from './AddNewProjectCard';
+import { PortfolioProvider } from './portfolioContext';
 import { ProjectCard } from './ProjectCard';
-import { usePortfolioDialog } from './usePortfolioDialog';
+import { ProjectDialog } from './ProjectDialog';
 
 export const useStyles = makeStyles((theme) => ({
   card: {
@@ -23,38 +24,25 @@ export const useStyles = makeStyles((theme) => ({
     border: 'none',
   },
 }));
-
 export function PortfolioSetup() {
-  const classes = useStyles();
-
-  const { dialog, openProjectDialog } = usePortfolioDialog();
   const { userData } = useDashboard();
-
   return (
-    <Papered title='Portfolio'>
-      {dialog}
-      <Grid container spacing={4}>
-        <Grid item xs={12} sm={6} md={3}>
-          <Card className={classes.card}>
-            <CardContent className={classes.cardContent}>
-              <Button
-                variant='outlined'
-                color='primary'
-                size='large'
-                className={classes.addButton}
-                startIcon={<AddCircle />}
-                onClick={openProjectDialog(null)}>
-                Add new entry
-              </Button>
-            </CardContent>
-          </Card>
-        </Grid>
-        {userData.portfolio?.map((project) => (
-          <Grid item key={project.id} xs={12} sm={6} md={3}>
-            <ProjectCard project={project} openDialog={openProjectDialog} />
+    <PortfolioProvider>
+      <ProjectDialog />
+
+      <Papered title='Portfolio'>
+        <Grid container spacing={4}>
+          <Grid item xs={12} sm={6} md={3}>
+            <AddNewProjectCard />
           </Grid>
-        ))}
-      </Grid>
-    </Papered>
+
+          {userData.portfolio.map((project) => (
+            <Grid item key={project.id} xs={12} sm={6} md={3}>
+              <ProjectCard project={project} />
+            </Grid>
+          ))}
+        </Grid>
+      </Papered>
+    </PortfolioProvider>
   );
 }

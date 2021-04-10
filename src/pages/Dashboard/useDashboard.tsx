@@ -1,10 +1,10 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { firebaseAuth, firebaseDatabase } from 'utils/firebase';
-import { UserData } from 'models/user.models';
+import { IProps, UserData } from 'models/user.models';
 import { initialUserDataState } from 'utils/mockData';
 
-type DrawerContextState = {
+type DashboardContextState = {
   drawerOpen: boolean;
   hasChanges: boolean;
   saveChanges: () => void;
@@ -14,9 +14,9 @@ type DrawerContextState = {
   setDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const DashboardContext = createContext<DrawerContextState>({} as DrawerContextState);
+const DashboardContext = createContext<DashboardContextState>({} as DashboardContextState);
 
-export function DashboardProvider({ children }: any) {
+export function DashboardProvider({ children }: IProps) {
   const [drawerOpen, setDrawerOpen] = useState(true);
   const [user] = useAuthState(firebaseAuth);
   const [initialUserData, setInitialUserData] = useState<UserData>(initialUserDataState);

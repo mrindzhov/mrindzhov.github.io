@@ -1,9 +1,9 @@
 import { Book, Comment, Flag, Inbox, Person, Work } from '@material-ui/icons';
 import LayersIcon from '@material-ui/icons/Layers';
 import { BasicsSetup } from './tabs/BasicsSetup';
+import { ExperienceSetup } from './tabs/ExperienceSetup';
 import { PortfolioSetup } from './tabs/PortfolioSetup';
 import { AllSkillsSetup } from './tabs/SkillsSetup';
-import { ExperienceSetup } from './tabs/ExperienceSetup';
 import { UserInbox } from './tabs/UserInbox';
 
 export type RouteElement = {

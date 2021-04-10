@@ -1,23 +1,13 @@
 import { Button, Card, CardActions, CardContent, CardMedia, Typography } from '@material-ui/core';
 import { Project } from 'models/user.models';
-import { useDashboard } from '../../useDashboard';
 import { useStyles } from './PortfolioSetup';
+import { usePortfolio } from './portfolioContext';
 
-type ProjectProps = {
-  project: Project;
-  openDialog: (selectedProject: Project | null) => () => void;
-};
+type ProjectCardProps = { project: Project };
 
-export function ProjectCard({ project, openDialog }: ProjectProps) {
+export function ProjectCard({ project }: ProjectCardProps) {
   const classes = useStyles();
-  const { setUserData } = useDashboard();
-
-  const deleteValue = (projectId: number) => () => {
-    setUserData((prevState) => ({
-      ...prevState,
-      portfolio: prevState.portfolio?.filter((pr) => pr.id !== projectId) || [],
-    }));
-  };
+  const { openProjectDialog, deleteProject } = usePortfolio();
 
   return (
     <Card className={classes.card}>
@@ -33,11 +23,11 @@ export function ProjectCard({ project, openDialog }: ProjectProps) {
         <Typography>{project.description}</Typography>
       </CardContent>
       <CardActions>
-        <Button onClick={deleteValue(project.id)} color='secondary' variant='outlined'>
+        <Button onClick={deleteProject(project.id)} color='secondary' variant='outlined'>
           Delete
         </Button>
 
-        <Button size='small' color='primary' onClick={openDialog(project)}>
+        <Button size='small' color='primary' onClick={openProjectDialog(project)}>
           Edit
         </Button>
       </CardActions>
