@@ -4,7 +4,19 @@ export function preventDefault(event: SyntheticEvent) {
   event.preventDefault();
 }
 
-export function getNewId(collection: { id: number }[]) {
+type BaseEntity = { id: number };
+
+export function removeListItemById<TEntity extends BaseEntity>(id: number, list: TEntity[] = []): TEntity[] {
+  return list?.filter((item) => item.id !== id) || [];
+}
+
+export function addOrUpdateListItem<TEntity extends BaseEntity>(newItem: TEntity, list: TEntity[] = []): TEntity[] {
+  return newItem.id > 0
+    ? list.map((p) => (p.id === newItem.id ? newItem : p)) // edit
+    : [...list, { ...newItem, id: getNewId(list) }]; // add
+}
+
+export function getNewId(collection: BaseEntity[]) {
   return (
     (collection.length && collection[0].id !== undefined ? Math.max(0, ...collection.map((item) => item.id)) : 0) + 1
   );

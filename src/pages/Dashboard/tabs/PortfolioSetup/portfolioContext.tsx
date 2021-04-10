@@ -1,6 +1,6 @@
 import { IProps, Project } from 'models/user.models';
 import { createContext, useCallback, useContext, useState } from 'react';
-import { getNewId } from 'utils';
+import { addOrUpdateListItem, removeListItemById } from 'utils';
 import { useDashboard } from '../../useDashboard';
 
 const defaultProject: Project = {
@@ -18,7 +18,7 @@ type PortfolioContextState = {
   handleClose: () => void;
   saveProject: () => void;
   deleteProject: (projectId: number) => () => void;
-  handleFieldChange: ({ target: { value, name } }: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => void;
+  handleFieldChange: (ev: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => void;
 };
 
 const PortfolioContext = createContext<PortfolioContextState>({} as PortfolioContextState);
@@ -28,10 +28,8 @@ export function PortfolioProvider({ children }: IProps) {
   const { setUserData } = useDashboard();
   const [project, setProject] = useState<Project>(defaultProject);
 
-  const handleFieldChange = ({
-    target: { value, name },
-  }: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-    setProject((prevState) => ({ ...prevState, [name]: value }));
+  const handleFieldChange = ({ target }: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+    setProject((prevState) => ({ ...prevState, [target.name]: target.value }));
   };
 
   const openProjectDialog = useCallback((selectedProject: Project | null) => {
@@ -47,25 +45,13 @@ export function PortfolioProvider({ children }: IProps) {
   }, []);
 
   const saveProject = useCallback(() => {
-    setUserData((prevState) => {
-      const newPortfolio = prevState?.portfolio || [];
-
-      const portfolio: Project[] =
-        project.id > 0
-          ? newPortfolio.map((p) => (p.id === project.id ? project : p)) // edit
-          : [...newPortfolio, { ...project, id: getNewId(newPortfolio) }]; // add
-      return { ...prevState, portfolio };
-    });
+    setUserData((prevState) => ({ ...prevState, portfolio: addOrUpdateListItem(project, prevState?.portfolio) }));
     handleClose();
   }, [handleClose, project, setUserData]);
 
   const deleteProject = useCallback(
-    (projectId: number) => () => {
-      setUserData((prevState) => ({
-        ...prevState,
-        portfolio: prevState.portfolio?.filter((pr) => pr.id !== projectId) || [],
-      }));
-    },
+    (projectId: number) => () =>
+      setUserData((prevState) => ({ ...prevState, portfolio: removeListItemById(projectId, prevState?.portfolio) })),
     [setUserData]
   );
 

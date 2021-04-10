@@ -1,7 +1,13 @@
-import { Button, Card, CardActions, CardContent, CardMedia, Typography } from '@material-ui/core';
+import { Button, Card, CardActions, CardContent, CardMedia, makeStyles, Typography } from '@material-ui/core';
 import { Project } from 'models/user.models';
-import { useStyles } from './PortfolioSetup';
+
 import { usePortfolio } from './portfolioContext';
+
+const useStyles = makeStyles((theme) => ({
+  card: { height: '100%', display: 'flex', flexDirection: 'column' },
+  cardMedia: { paddingTop: '56.25%' /* 16:9 */ },
+  cardContent: { flexGrow: 1 },
+}));
 
 type ProjectCardProps = { project: Project };
 
