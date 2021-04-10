@@ -1,6 +1,6 @@
 import { InputAdornment, makeStyles, TextField } from '@material-ui/core';
 import React from 'react';
-import { useDashboard } from '../useDashboard';
+import { useDashboard } from '../dashboardContext';
 import { socialLinksInfo } from 'utils/socialLinksInfo';
 import { Papered } from 'components/Papered';
 

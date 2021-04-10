@@ -9,7 +9,7 @@ import clsx from 'clsx';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { NavLink } from 'react-router-dom';
 import { firebaseAuth } from 'utils/firebase';
-import { useDashboard } from './useDashboard';
+import { useDashboard } from './dashboardContext';
 import { drawerWidth } from './Drawer';
 
 const useStyles = makeStyles((theme: Theme) => ({

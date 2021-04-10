@@ -2,7 +2,7 @@ import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
 import { Experience, IProps } from 'models/user.models';
 import React, { createContext, useCallback, useContext, useState } from 'react';
 import { addOrUpdateListItem, removeListItemById } from 'utils';
-import { useDashboard } from '../../useDashboard';
+import { useDashboard } from '../../dashboardContext';
 
 const defaultExperience: Experience = {
   id: 0,

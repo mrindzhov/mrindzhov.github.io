@@ -2,7 +2,7 @@ import { Grid } from '@material-ui/core';
 import { CardButton } from 'components/CardButton';
 import { ExperienceTimeline } from 'components/ExperienceTimeline';
 import { Papered } from 'components/Papered';
-import { useDashboard } from '../../useDashboard';
+import { useDashboard } from '../../dashboardContext';
 import { ExperienceDialog } from './ExperienceDialog';
 import { ExperiencesProvider, useExperiences } from './experiencesContext';
 

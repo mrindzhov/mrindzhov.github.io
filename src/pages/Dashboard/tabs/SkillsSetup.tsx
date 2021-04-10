@@ -2,10 +2,11 @@ import { Box, Grid, makeStyles, Typography } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { useDashboard } from '../useDashboard';
-import { Skill, UserData } from 'models/user.models';
 import { Papered } from 'components/Papered';
 import { SkillsSlider } from 'components/SkillsSlider';
+import { UserData } from 'models/user.models';
+import { addOrUpdateListItem, removeListItemById } from 'utils';
+import { useDashboard } from '../dashboardContext';
 
 const useStyles = makeStyles((theme) => ({
   skillRow: {
@@ -57,17 +58,10 @@ function SkillsCategorySetup({ category, title }: SkillsCategorySetupProps) {
   const { userData, setUserData } = useDashboard();
 
   const addNewValue = () => {
-    setUserData((prevState) => {
-      const newTechSkills = prevState?.[category] || [];
-
-      const newSkill: Skill = {
-        id: Math.max(0, ...newTechSkills.map((item) => item.id)) + 1,
-        level: 20,
-        name: '',
-      };
-
-      return { ...prevState, [category]: [...newTechSkills, newSkill] };
-    });
+    setUserData((prevState) => ({
+      ...prevState,
+      [category]: addOrUpdateListItem({ id: 0, level: 20, name: '' }, prevState?.[category]),
+    }));
   };
 
   const handleSkillNameChange = (id: number, name: string) => {
@@ -85,10 +79,7 @@ function SkillsCategorySetup({ category, title }: SkillsCategorySetupProps) {
   };
 
   const deleteValue = (skillId: number) => {
-    setUserData((prevState) => ({
-      ...prevState,
-      [category]: prevState[category]?.filter((skill) => skill.id !== skillId) || [],
-    }));
+    setUserData((prevState) => ({ ...prevState, [category]: removeListItemById(skillId, prevState?.[category]) }));
   };
 
   return (
@@ -105,7 +96,7 @@ function SkillsCategorySetup({ category, title }: SkillsCategorySetupProps) {
                   className={classes.inputField}
                   autoFocus
                   margin='dense'
-                  label='Value'
+                  label='Text'
                   defaultValue={name}
                   onChange={(e) => handleSkillNameChange(id, e.target.value)}
                 />

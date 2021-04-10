@@ -1,7 +1,7 @@
 import { Grid } from '@material-ui/core';
 import { CardButton } from 'components/CardButton';
 import { Papered } from 'components/Papered';
-import { useDashboard } from '../../useDashboard';
+import { useDashboard } from '../../dashboardContext';
 import { PortfolioProvider, usePortfolio } from './portfolioContext';
 import { ProjectCard } from './ProjectCard';
 import { ProjectDialog } from './ProjectDialog';

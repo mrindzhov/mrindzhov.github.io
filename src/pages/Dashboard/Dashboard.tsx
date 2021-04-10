@@ -7,7 +7,7 @@ import { DashboardDrawer, drawerWidth } from './Drawer';
 import { dashboardPages } from './innerPages';
 import { Header } from './Header';
 import { Papered } from 'components/Papered';
-import { DashboardProvider, useDashboard } from './useDashboard';
+import { DashboardProvider, useDashboard } from './dashboardContext';
 
 const useStyles = makeStyles((theme) => ({
   root: {

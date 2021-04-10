@@ -41,10 +41,14 @@ export function MyProjects(user: UserData) {
   return user.portfolio?.length ? (
     <Container className={classes.cardGrid} maxWidth='md'>
       <Grid container spacing={4}>
-        {user.portfolio.map(({ title, description }) => (
-          <Grid item key={title} xs={12} sm={6} md={4}>
+        {user.portfolio.map(({ title, description, id, imageUrl, projectUrl }) => (
+          <Grid item key={id} xs={12} sm={6} md={4}>
             <Card className={classes.card}>
-              <CardMedia className={classes.cardMedia} image='https://source.unsplash.com/random' title='Image title' />
+              <CardMedia
+                className={classes.cardMedia}
+                image={imageUrl ? imageUrl : 'https://source.unsplash.com/random'}
+                title='Image title'
+              />
               <CardContent className={classes.cardContent}>
                 <Typography gutterBottom variant='h5' component='h2'>
                   {title}
@@ -52,8 +56,9 @@ export function MyProjects(user: UserData) {
                 <Typography>{description}</Typography>
               </CardContent>
               <CardActions>
-                <Button size='small'>View</Button>
-                <Button size='small'>Edit</Button>
+                <Button size='small' href={projectUrl}>
+                  View
+                </Button>
               </CardActions>
             </Card>
           </Grid>

@@ -28,6 +28,8 @@ export function ExperienceDialog() {
                 <TextField
                   required
                   fullWidth
+                  multiline={key === 'jobDescription'}
+                  rows={key === 'jobDescription' ? 4 : undefined}
                   margin='dense'
                   key={key}
                   name={key}

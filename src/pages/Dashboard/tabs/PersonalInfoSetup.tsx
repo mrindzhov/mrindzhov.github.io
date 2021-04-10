@@ -1,7 +1,7 @@
 import { FormControl, FormControlLabel, FormGroup, FormLabel, Switch, TextField } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import React from 'react';
-import { useDashboard } from '../useDashboard';
+import { useDashboard } from '../dashboardContext';
 import { toCapitalizedWord } from 'utils';
 import { Papered } from 'components/Papered';
 

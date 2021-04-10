@@ -13,7 +13,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { firebaseAuth } from 'utils/firebase';
 import { dashboardPages } from './innerPages';
-import { useDashboard } from './useDashboard';
+import { useDashboard } from './dashboardContext';
 
 export const drawerWidth = 240;
 

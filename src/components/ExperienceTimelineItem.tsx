@@ -22,6 +22,9 @@ const useStyles = makeStyles((theme) => ({
     width: theme.spacing(8),
     height: theme.spacing(8),
   },
+  companyDescription: {
+    whiteSpace: 'pre',
+  },
 }));
 export const ExperienceTimelineItem = (experience: Experience) => {
   const { companyName, companyLogo, jobDescription, jobTitle, startDate, endDate } = experience;
@@ -48,7 +51,7 @@ export const ExperienceTimelineItem = (experience: Experience) => {
           <Typography variant='h6' component='h1'>
             {companyName}
           </Typography>
-          <Typography variant='caption' component='p'>
+          <Typography variant='caption' component='p' className={classes.companyDescription}>
             {jobTitle}
           </Typography>
           <hr />

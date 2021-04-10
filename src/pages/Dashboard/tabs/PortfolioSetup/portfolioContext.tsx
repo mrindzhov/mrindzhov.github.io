@@ -1,7 +1,7 @@
 import { IProps, Project } from 'models/user.models';
 import { createContext, useCallback, useContext, useState } from 'react';
 import { addOrUpdateListItem, removeListItemById } from 'utils';
-import { useDashboard } from '../../useDashboard';
+import { useDashboard } from '../../dashboardContext';
 
 const defaultProject: Project = {
   id: 0,

@@ -15,7 +15,8 @@ export function ProjectDialog() {
             <TextField
               required
               fullWidth
-              autoFocus={i === 0}
+              multiline={key === 'description'}
+              rows={key === 'description' ? 4 : undefined}
               margin='dense'
               key={key}
               name={key}

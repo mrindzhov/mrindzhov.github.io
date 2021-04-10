@@ -22,7 +22,10 @@ export function AboutMe(user: UserData) {
     <Container maxWidth='lg'>
       <Grid container>
         <Grid item md={4} sm={12} className={classes.flex}>
-          <Avatar src='https://source.unsplash.com/random' className={classes.large} />
+          <Avatar
+            src={user.imageURL ? user.imageURL : 'https://source.unsplash.com/random'}
+            className={classes.large}
+          />
           <div>
             {Object.entries(user.social)
               .filter(([, id]) => id?.length)
