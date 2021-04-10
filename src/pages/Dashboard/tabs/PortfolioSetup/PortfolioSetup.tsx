@@ -1,10 +1,11 @@
-import { Button, Card, CardActions, CardContent, CardMedia, Grid, makeStyles, Typography } from '@material-ui/core';
+import { Button, Card, CardContent, Grid, makeStyles } from '@material-ui/core';
 import { AddCircle } from '@material-ui/icons';
 import { Papered } from 'components/Papered';
 import { useDashboard } from '../../useDashboard';
+import { ProjectCard } from './ProjectCard';
 import { usePortfolioDialog } from './usePortfolioDialog';
 
-const useStyles = makeStyles((theme) => ({
+export const useStyles = makeStyles((theme) => ({
   card: {
     height: '100%',
     display: 'flex',
@@ -27,14 +28,7 @@ export function PortfolioSetup() {
   const classes = useStyles();
 
   const { dialog, openProjectDialog } = usePortfolioDialog();
-  const { userData, setUserData } = useDashboard();
-
-  const deleteValue = (projectId: number) => () => {
-    setUserData((prevState) => ({
-      ...prevState,
-      portfolio: prevState.portfolio?.filter((pr) => pr.id !== projectId) || [],
-    }));
-  };
+  const { userData } = useDashboard();
 
   return (
     <Papered title='Portfolio'>
@@ -57,28 +51,7 @@ export function PortfolioSetup() {
         </Grid>
         {userData.portfolio?.map((project) => (
           <Grid item key={project.id} xs={12} sm={6} md={3}>
-            <Card className={classes.card}>
-              <CardMedia
-                className={classes.cardMedia}
-                image={project.imageUrl ? project.imageUrl : 'https://source.unsplash.com/random'}
-                title={project.title}
-              />
-              <CardContent className={classes.cardContent}>
-                <Typography gutterBottom variant='h5' component='h2'>
-                  {project.title}
-                </Typography>
-                <Typography>{project.description}</Typography>
-              </CardContent>
-              <CardActions>
-                <Button onClick={deleteValue(project.id)} color='secondary' variant='outlined'>
-                  Delete
-                </Button>
-
-                <Button size='small' color='primary' onClick={openProjectDialog(project)}>
-                  Edit
-                </Button>
-              </CardActions>
-            </Card>
+            <ProjectCard project={project} openDialog={openProjectDialog} />
           </Grid>
         ))}
       </Grid>
