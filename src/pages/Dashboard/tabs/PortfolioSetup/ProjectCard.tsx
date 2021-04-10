@@ -7,6 +7,7 @@ type ProjectProps = {
   project: Project;
   openDialog: (selectedProject: Project | null) => () => void;
 };
+
 export function ProjectCard({ project, openDialog }: ProjectProps) {
   const classes = useStyles();
   const { setUserData } = useDashboard();

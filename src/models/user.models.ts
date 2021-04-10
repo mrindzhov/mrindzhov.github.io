@@ -13,6 +13,7 @@ export type Social = {
 };
 
 export interface Experience {
+  id: number;
   companyName: string;
   jobTitle: string;
   jobDescription: string;
@@ -61,7 +62,7 @@ export interface UserData {
 
   social: Social;
 
-  experience: Experience[];
+  experiences: Experience[];
   education: Education[];
   // TODO: Merge skill types & use skill category instead
   softSkills: Skill[];

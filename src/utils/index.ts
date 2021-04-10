@@ -19,3 +19,10 @@ export function toCapitalizedWord(name: string) {
 export function capitalize(word: string) {
   return word.charAt(0).toUpperCase() + word.substring(1);
 }
+
+export function visualizeDatesRange(startDate: Date, endDate: Date | null): string {
+  const startDateText = startDate?.toLocaleString('default', { month: 'long', year: 'numeric' });
+  const endDateText = endDate?.toLocaleString('default', { month: 'long', year: 'numeric' }) ?? 'Present';
+
+  return `${startDateText} - ${endDateText}`;
+}

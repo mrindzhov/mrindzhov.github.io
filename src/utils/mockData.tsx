@@ -12,7 +12,7 @@ export const initialUserDataState: UserData = {
   resumeUrl: 'http://ipv4.download.thinkbroadband.com/5MB.zip',
   imageURL: 'https://source.unsplash.com/random',
   social: createDefaultSocialLinks(),
-  experience: [],
+  experiences: [],
   education: [],
   techSkills: [],
   softSkills: [],
@@ -41,8 +41,9 @@ export const demoUserData: UserData = {
     github: 'tbakerx',
   },
 
-  experience: [
+  experiences: [
     {
+      id: 1,
       companyName: 'Shop Your Own Mortgage',
       jobTitle: 'Engineer',
       jobDescription:
@@ -52,6 +53,7 @@ export const demoUserData: UserData = {
       endDate: null,
     },
     {
+      id: 2,
       companyName: 'City of Fort St. John',
       jobTitle: 'Utility Maintenance Technician 1 / Labourer ',
       startDate: new Date(2014, 4),
