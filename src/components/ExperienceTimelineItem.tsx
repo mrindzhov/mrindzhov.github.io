@@ -42,7 +42,11 @@ export const ExperienceTimelineItem = (experience: Experience) => {
       </TimelineOppositeContent>
       <TimelineSeparator>
         <TimelineDot>
-          <Avatar src='https://source.unsplash.com/random' alt={companyLogo} className={classes.companyLogo} />
+          <Avatar
+            src={companyLogo ? companyLogo : 'https://source.unsplash.com/random'}
+            alt={companyLogo}
+            className={classes.companyLogo}
+          />
         </TimelineDot>
         <TimelineConnector />
       </TimelineSeparator>
